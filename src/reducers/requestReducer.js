@@ -16,25 +16,25 @@ export const requestReducer = (state = initialState, action) => {
         requests: [...state.requests, action.payload]
       };
     case "UPDATE_REQUEST":
-      const newRequestList = state.requests.filter(request => {
-        request.id !== action.payload.id;
+      const updatedRequestList = state.requests.filter(request => {
+        return request.id !== action.payload.id;
       });
       return {
         ...state,
-        requests: [...newRequestList, action.payload]
+        requests: [...updatedRequestList, action.payload]
       };
     case "DELETE_REQUEST":
       const newRequestList = state.requests.filter(request => {
-        request.id !== action.payload.id;
+        return request.id !== action.payload.id;
       });
       return {
         ...state,
-        requests: [...action.payload]
+        requests: [...newRequestList]
       };
     case "REQUEST_ERROR":
       return {
         ...state,
-        error: payload
+        error: action.payload
       };
     default:
       return state;
