@@ -11,14 +11,15 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path="/signup" component={Signup} />
-        <Route path="/login" component={Login} />
         <PrivateRoute path="/businessDashboard">
           {/* BUSINESS DASHBOARD */}
         </PrivateRoute>
         <PrivateRoute path="/volunteerDashboard">
           {/* VOLUNTEER DASHBOARD */}
         </PrivateRoute>
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Login} />
       </Switch>
     </BrowserRouter>
   );
