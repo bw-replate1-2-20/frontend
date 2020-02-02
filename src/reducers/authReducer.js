@@ -3,6 +3,7 @@ const initialState = {
   isFetching: false,
   email: "",
   password: "",
+  location: null,
   description: null
 };
 

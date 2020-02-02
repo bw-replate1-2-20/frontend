@@ -12,6 +12,7 @@ const App = () => {
       <Switch>
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={""} />
       </Switch>
     </BrowserRouter>
   );

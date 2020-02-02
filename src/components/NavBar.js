@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,12 +36,12 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Replate
           </Typography>
-          <Link to="/login" className={classes.link}>
-            Login
-          </Link>
-          <Link to="/signup" className={classes.link}>
-            Sign Up
-          </Link>
+          <Button href="/signup" color="inherit">
+            signup
+          </Button>
+          <Button href="/login" color="inherit">
+            login
+          </Button>{" "}
         </Toolbar>
       </AppBar>
     </div>
