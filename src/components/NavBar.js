@@ -36,12 +36,9 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Replate
           </Typography>
-          <Button href="/signup" color="inherit">
-            signup
-          </Button>
           <Button href="/login" color="inherit">
             login
-          </Button>{" "}
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
