@@ -29,3 +29,42 @@ export const getRequests = userInfo => {
       });
   }
 };
+
+export const createRequest = payload => {
+  axiosWithAuth()
+    .post(/* URL GOES HERE */ payload)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: "CREATE_REQUEST", payload });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: "REQUEST_ERROR", payload: err });
+    });
+};
+
+export const updateRequest = (payload, id) => {
+  axiosWithAuth()
+    .post(` URL GOES HERE w/ ID ${id}`, payload)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: "UPDATE_REQUEST", payload });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: "REQUEST_ERROR", payload: err });
+    });
+};
+
+export const deleteRequest = (payload, id) => {
+  axiosWithAuth()
+    .delete(` URL GOES HERE w/ ID ${id}`)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: "DELETE_REQUEST", payload });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: "REQUEST_ERROR", payload: err });
+    });
+};
