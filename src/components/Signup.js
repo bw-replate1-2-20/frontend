@@ -35,7 +35,7 @@ const Signup = () => {
    
 
     <Container maxWidth='xs'>
-      <Grid container justify="center" direction='column' style={{ margin: '20px 0' }}>
+      <Grid container justify="center" direction='column' style={{ marginTop: '25px' }}>
         
         <Typography variant="h4" style={{ marginBottom: "10px", textAlign: 'center' }}>
           Sign Up
