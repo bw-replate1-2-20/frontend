@@ -23,7 +23,7 @@ const Login = props => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formValue);
-    props.login(formValue);
+    props.login(formValue, props.history);
   };
 
   return (

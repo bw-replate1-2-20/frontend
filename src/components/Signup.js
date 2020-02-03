@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
-const Signup = () => {
+const Signup = props => {
   const [formValue, setFormValue] = useState({ username: "", password: "" });
 
   const handleChange = e => {
@@ -22,6 +22,7 @@ const Signup = () => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formValue);
+    props.signUp(formValue, props.history);
   };
 
   return (
@@ -42,9 +43,6 @@ const Signup = () => {
           flexDirection: "column",
           marginTop: "50px"
         }}
-        xs={12}
-        sm={8}
-        md={5}
       >
         <Typography variant="h4" style={{ marginBottom: "10px" }}>
           Sign Up
