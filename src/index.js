@@ -21,8 +21,8 @@ const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
-    <CssBaseline />
     <ThemeProvider theme={ReplateTheme}>
+    <CssBaseline />
     <App />
     </ThemeProvider>
   </Provider>,
