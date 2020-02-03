@@ -7,6 +7,8 @@ import logger from "redux-logger";
 
 import rootReducer from "./reducers";
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 import App from "./components/App";
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
@@ -14,6 +16,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
+    <CssBaseline />
     <App />
   </Provider>,
   rootElement
