@@ -26,25 +26,27 @@ const Login = props => {
     //Reformatted forms with react useForm
     <Container maxWidth='xs'>
       <Grid justify="center" direction='column'>
-        <Typography variant="h3" style={{ marginBottom: "15px", marginTop: "50px", textAlign: "center" }}>
+        <Typography variant="h3" style={{ marginBottom: "15px", marginTop: "125px", textAlign: "center" }}>
           Welcome<br />Back
         </Typography>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="filled"
+            color="primary"
             required
             fullWidth
             id="username"
             label="Username"
             name="username"
             autoComplete="username"
-            style={{ margin: "15px 0", backgroundColor: "white" }}
+            style={{ margin: "15px 0" }}
 
             inputRef={register}
           />
           <TextField
             variant="filled"
+            color="primary"
             required
             fullWidth
             name="password"
@@ -52,7 +54,7 @@ const Login = props => {
             type="password"
             id="password"
             autoComplete="current-password"
-            style={{ margin: "15px 0", backgroundColor: "white" }}
+            style={{ margin: "15px 0" }}
 
             inputRef={register}
           />
