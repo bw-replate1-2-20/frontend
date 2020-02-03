@@ -5,37 +5,24 @@ import { useForm } from "react-hook-form";
 import { login } from "../actions/authActions";
 
 // material ui
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+
 import Typography from "@material-ui/core/Typography";
 
 const Login = props => {
-  const [formValue, setFormValue] = useState({ username: "", password: "" });
+  
+  const {handleSubmit, register, error} = useForm();
 
-  const handleChange = e => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(formValue);
-    props.login(formValue);
-  };
+  //Login action goes here
+  const onSubmit = values => {
+    console.log(values)
+  }
 
   return (
-    // user login form goes here
-    // form distinguishes volunteers from businesses
-    //
-
-    // DEFINATELY DONT USE THE CODE BELOW (use it if you want, but by no means feel obligated)
-    // MAKE YOUR OWN FOR WITH REACT-HOOK-FORM
-    // AND STYLE IT ACCORDINGLY, THIS IS JUST PLACEHOLDER TO GET A FEEL FOR EVERYTHING
-    //
-
+    //Reformatted forms with react useForm
     <Grid container component="main" justify="center">
       <div
         style={{
@@ -45,42 +32,41 @@ const Login = props => {
           marginTop: "50px"
         }}
       >
-        <Typography variant="h3" style={{ marginBottom: "10px", textAlign: "center"}}>
+        <Typography variant="h3" style={{ marginBottom: "15px", textAlign: "center"}}>
           Welcome<br/>Back
         </Typography>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <form noValidate>
+        
+        <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
-            variant="outlined"
-            margin="normal"
+            variant="filled"
             required
             fullWidth
             id="username"
             label="username"
             name="username"
-            onChange={handleChange}
             autoComplete="username"
+            style={{ margin: "15px 0", backgroundColor: "white" }}
+
+            inputRef={register}
           />
           <TextField
-            variant="outlined"
-            margin="normal"
+            variant="filled"
             required
             fullWidth
             name="password"
             label="Password"
             type="password"
             id="password"
-            onChange={handleChange}
             autoComplete="current-password"
+            style={{ margin: "15px 0", backgroundColor: "white" }}
+
+            inputRef={register}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
             style={{ margin: "15px 0" }}
           >
             Log In
