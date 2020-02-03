@@ -20,8 +20,6 @@ import { Container } from "@material-ui/core";
 
 const Signup = (props) => {
   const [isBusiness, setIsBusiness] = useState(false);
-
-  let history = useHistory();
   const { handleSubmit, register, error } = useForm();
 
   //Signup action goes here
