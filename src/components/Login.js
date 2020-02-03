@@ -11,10 +11,11 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 
 import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
 
 const Login = props => {
-  
-  const {handleSubmit, register, error} = useForm();
+
+  const { handleSubmit, register, error } = useForm();
 
   //Login action goes here
   const onSubmit = values => {
@@ -23,19 +24,12 @@ const Login = props => {
 
   return (
     //Reformatted forms with react useForm
-    <Grid container component="main" justify="center">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "50px"
-        }}
-      >
-        <Typography variant="h3" style={{ marginBottom: "15px", textAlign: "center"}}>
-          Welcome<br/>Back
+    <Container maxWidth='xs'>
+      <Grid justify="center" direction='column'>
+        <Typography variant="h3" style={{ marginBottom: "15px", marginTop: "50px", textAlign: "center" }}>
+          Welcome<br />Back
         </Typography>
-        
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="filled"
@@ -80,8 +74,9 @@ const Login = props => {
             </Grid>
           </Grid>
         </form>
-      </div>
-    </Grid>
+
+      </Grid>
+    </Container>
   );
 };
 
