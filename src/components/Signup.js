@@ -18,7 +18,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
-const Signup = () => {
+const Signup = (props) => {
   const [isBusiness, setIsBusiness] = useState(false);
 
   let history = useHistory();
