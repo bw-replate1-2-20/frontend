@@ -26,7 +26,7 @@ const Login = props => {
     //Reformatted forms with react useForm
     <Container maxWidth='xs'>
       <Grid justify="center" direction='column'>
-        <Typography variant="h3" style={{ marginBottom: "15px", marginTop: "125px", textAlign: "center" }}>
+        <Typography variant="h3" style={{ marginBottom: "15px", marginTop: "115px", textAlign: "center" }}>
           Welcome<br />Back
         </Typography>
 
