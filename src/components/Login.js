@@ -5,82 +5,71 @@ import { useForm } from "react-hook-form";
 import { login } from "../actions/authActions";
 
 // material ui
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+
 import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
 
 const Login = props => {
-  const [formValue, setFormValue] = useState({ username: "", password: "" });
+  const { handleSubmit, register, error } = useForm();
 
-  const handleChange = e => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(formValue);
-    props.login(formValue, props.history);
+  //Login action goes here
+  const onSubmit = values => {
+    console.log(values);
+    props.login(values, props.history);
   };
 
   return (
-    // user login form goes here
-    // form distinguishes volunteers from businesses
-    //
-
-    // DEFINATELY DONT USE THE CODE BELOW (use it if you want, but by no means feel obligated)
-    // MAKE YOUR OWN FOR WITH REACT-HOOK-FORM
-    // AND STYLE IT ACCORDINGLY, THIS IS JUST PLACEHOLDER TO GET A FEEL FOR EVERYTHING
-    //
-
-    <Grid container component="main" justify="center">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "50px"
-        }}
-      >
-        <Typography variant="h4" style={{ marginBottom: "10px" }}>
-          Log In
+    //Reformatted forms with react useForm
+    <Container maxWidth="xs">
+      <Grid justify="center" direction="column">
+        <Typography
+          variant="h3"
+          style={{
+            marginBottom: "15px",
+            marginTop: "115px",
+            textAlign: "center"
+          }}
+        >
+          Welcome
+          <br />
+          Back
         </Typography>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <form noValidate>
+
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
+            color="primary"
             margin="normal"
             required
             fullWidth
             id="username"
-            label="username"
+            label="Username"
             name="username"
-            onChange={handleChange}
             autoComplete="username"
+            inputRef={register}
           />
           <TextField
             variant="outlined"
             margin="normal"
+            color="primary"
             required
             fullWidth
             name="password"
             label="Password"
             type="password"
             id="password"
-            onChange={handleChange}
             autoComplete="current-password"
+            inputRef={register}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
             style={{ margin: "15px 0" }}
           >
             Log In
@@ -94,8 +83,8 @@ const Login = props => {
             </Grid>
           </Grid>
         </form>
-      </div>
-    </Grid>
+      </Grid>
+    </Container>
   );
 };
 
