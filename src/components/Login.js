@@ -45,8 +45,8 @@ const Login = props => {
           marginTop: "50px"
         }}
       >
-        <Typography variant="h4" style={{ marginBottom: "10px" }}>
-          Log In
+        <Typography variant="h3" style={{ marginBottom: "10px", textAlign: "center"}}>
+          Welcome<br/>Back
         </Typography>
         <Avatar>
           <LockOutlinedIcon />

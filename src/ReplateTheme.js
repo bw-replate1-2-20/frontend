@@ -7,7 +7,7 @@ const ReplateTheme = createMuiTheme({
             white:"#fff" },
         background: {
                 paper : "#fff",
-                default : "rgba(234, 245, 255, 1)" },
+                default : "#EAF5FF" },
         primary: {
                 main :"rgba(255, 151, 76, 1)"
         },
