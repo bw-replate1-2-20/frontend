@@ -30,22 +30,23 @@ const Login = props => {
           Welcome<br />Back
         </Typography>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
-            variant="filled"
+            variant="outlined"
             color="primary"
+            margin='normal'
             required
             fullWidth
             id="username"
             label="Username"
             name="username"
             autoComplete="username"
-            style={{ margin: "15px 0" }}
 
             inputRef={register}
           />
           <TextField
-            variant="filled"
+            variant="outlined"
+            margin='normal'
             color="primary"
             required
             fullWidth
@@ -54,7 +55,7 @@ const Login = props => {
             type="password"
             id="password"
             autoComplete="current-password"
-            style={{ margin: "15px 0" }}
+           
 
             inputRef={register}
           />
