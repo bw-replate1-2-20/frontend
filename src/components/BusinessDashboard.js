@@ -2,7 +2,7 @@
 // CREATE REQUEST FORM
 // PASS ACTIONS AS PROPS TO OTHER COMPONENTS
 
-import React, { useState } from "react";
+import React, { useEffect, useDebugValue } from "react";
 import { connect } from "react-redux";
 
 /* import RequestList from "./RequestList" */
@@ -15,6 +15,10 @@ import {
 } from "../actions/requestActions";
 
 const BusinessDashboard = props => {
+  useEffect(() => {
+    props.getRequests(props.location);
+  }, []);
+
   return <h1>Business Dashboard Component</h1>;
 };
 

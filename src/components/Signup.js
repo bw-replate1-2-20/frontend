@@ -4,14 +4,13 @@ import { connect } from "react-redux";
 import { signUp } from "../actions/authActions";
 
 //React form
-import {useForm} from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
 //For navigating to login page after signup button click
-import {useHistory} from 'react-router-dom';
-
+import { useHistory } from "react-router-dom";
 
 // material ui
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -20,41 +19,50 @@ import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
 const Signup = () => {
-  
   const [isBusiness, setIsBusiness] = useState(false);
 
-  let history = useHistory()
+  let history = useHistory();
   const { handleSubmit, register, error } = useForm();
 
   //Signup action goes here
   const onSubmit = values => {
-    console.log(values)
-  }
+    console.log(values);
+    props.signUp(values, props.history);
+  };
 
   return (
-   
-
-    <Container maxWidth='xs'>
-      <Grid container justify="center" direction='column' style={{ marginTop: '25px' }}>
-        
-        <Typography variant="h4" style={{ marginBottom: "10px", textAlign: 'center' }}>
+    <Container maxWidth="xs">
+      <Grid
+        container
+        justify="center"
+        direction="column"
+        style={{ marginTop: "25px" }}
+      >
+        <Typography
+          variant="h4"
+          style={{ marginBottom: "10px", textAlign: "center" }}
+        >
           Sign Up
         </Typography>
 
-        <ButtonGroup fullWidth variant='contained'>
+        <ButtonGroup fullWidth variant="contained">
           <Button
-          color={isBusiness ? 'default' : 'primary'}
-          onClick={() => {setIsBusiness(false)}}>
+            color={isBusiness ? "default" : "primary"}
+            onClick={() => {
+              setIsBusiness(false);
+            }}
+          >
             Volunteer
           </Button>
           <Button
-          color={isBusiness ? 'primary' : 'default'}
-          onClick={() => {setIsBusiness(true)}}
+            color={isBusiness ? "primary" : "default"}
+            onClick={() => {
+              setIsBusiness(true);
+            }}
           >
             Business
           </Button>
         </ButtonGroup>
-
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -65,7 +73,6 @@ const Signup = () => {
             label="Username"
             name="username"
             autoComplete="username"
-            
             inputRef={register}
           />
           <TextField
@@ -77,20 +84,20 @@ const Signup = () => {
             label="Password"
             type="password"
             autoComplete="current-password"
-
             inputRef={register}
           />
-         {isBusiness && <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="location"
-            label="Location"
-            autoComplete="current-password"
-
-            inputRef={register}
-          />}
+          {isBusiness && (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="location"
+              label="Location"
+              autoComplete="current-password"
+              inputRef={register}
+            />
+          )}
           <TextField
             variant="outlined"
             margin="normal"
@@ -98,21 +105,21 @@ const Signup = () => {
             fullWidth
             name="phone"
             label="Phone Number"
-
             inputRef={register}
           />
-          {isBusiness && <TextField
-            label="Description"
-            multiline
-            rows="3"
-            placeholder="A brief description of your business or organization."
-            variant="outlined"
-            name="description"
-            margin="normal"
-            style={{ width: "100%" }}
-
-            inputRef={register}
-          />}
+          {isBusiness && (
+            <TextField
+              label="Description"
+              multiline
+              rows="3"
+              placeholder="A brief description of your business or organization."
+              variant="outlined"
+              name="description"
+              margin="normal"
+              style={{ width: "100%" }}
+              inputRef={register}
+            />
+          )}
           <Button
             type="submit"
             fullWidth
@@ -132,7 +139,6 @@ const Signup = () => {
           </Grid>
         </form>
       </Grid>
-
     </Container>
   );
 };

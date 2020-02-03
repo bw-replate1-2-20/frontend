@@ -14,39 +14,47 @@ import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
 const Login = props => {
-
   const { handleSubmit, register, error } = useForm();
 
   //Login action goes here
   const onSubmit = values => {
-    console.log(values)
-  }
+    console.log(values);
+    props.login(values, props.history);
+  };
 
   return (
     //Reformatted forms with react useForm
-    <Container maxWidth='xs'>
-      <Grid justify="center" direction='column'>
-        <Typography variant="h3" style={{ marginBottom: "15px", marginTop: "115px", textAlign: "center" }}>
-          Welcome<br />Back
+    <Container maxWidth="xs">
+      <Grid justify="center" direction="column">
+        <Typography
+          variant="h3"
+          style={{
+            marginBottom: "15px",
+            marginTop: "115px",
+            textAlign: "center"
+          }}
+        >
+          Welcome
+          <br />
+          Back
         </Typography>
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
             color="primary"
-            margin='normal'
+            margin="normal"
             required
             fullWidth
             id="username"
             label="Username"
             name="username"
             autoComplete="username"
-
             inputRef={register}
           />
           <TextField
             variant="outlined"
-            margin='normal'
+            margin="normal"
             color="primary"
             required
             fullWidth
@@ -55,8 +63,6 @@ const Login = props => {
             type="password"
             id="password"
             autoComplete="current-password"
-           
-
             inputRef={register}
           />
           <Button
@@ -77,7 +83,6 @@ const Login = props => {
             </Grid>
           </Grid>
         </form>
-
       </Grid>
     </Container>
   );

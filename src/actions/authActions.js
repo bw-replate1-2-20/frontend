@@ -2,10 +2,14 @@ import axios from "axios";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
 export const signUp = (userInfo, history) => dispatch => {
+  console.log("in the signup form", userInfo);
   dispatch({ type: "SIGN_UP_START" });
   if (userInfo.isBusiness) {
     axios
-      .post(/* URL GOES HERE */ "", userInfo)
+      .post(
+        "https://replate-food-reuse.herokuapp.com/api/auth/register/business",
+        userInfo
+      )
       .then(res => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
@@ -17,7 +21,10 @@ export const signUp = (userInfo, history) => dispatch => {
       .catch(err => dispatch({ type: "SIGN_UP_FAILED", payload: err.message }));
   } else {
     axios
-      .post(/* URL GOES HERE */ "", userInfo)
+      .post(
+        "https://replate-food-reuse.herokuapp.com/api/auth/register/volunteer",
+        userInfo
+      )
       .then(res => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
@@ -35,7 +42,10 @@ export const login = (userInfo, history) => dispatch => {
   dispatch({ type: "LOGIN_START" });
   if (userInfo.isBusiness) {
     axios
-      .post(/* URL GOES HERE */ "", userInfo)
+      .post(
+        "https://replate-food-reuse.herokuapp.com/api/auth/login/business",
+        userInfo
+      )
       .then(res => {
         console.log("login response", res.data);
         localStorage.setItem("token", res.data.token);
@@ -47,7 +57,10 @@ export const login = (userInfo, history) => dispatch => {
       .catch(err => dispatch({ type: "LOGIN_FAILED", payload: err.message }));
   } else {
     axios
-      .post(/* URL GOES HERE */ "", userInfo)
+      .post(
+        "https://replate-food-reuse.herokuapp.com/api/auth/login/volunteer",
+        userInfo
+      )
       .then(res => {
         console.log("login response", res.data);
         localStorage.setItem("token", res.data.token);
@@ -56,6 +69,9 @@ export const login = (userInfo, history) => dispatch => {
 
         history.push("/volunteerDashboard");
       })
-      .catch(err => dispatch({ type: "LOGIN_FAILED" }));
+      .catch(err => {
+        history.push("/businessDashboard");
+        dispatch({ type: "LOGIN_FAILED" });
+      });
   }
 };
