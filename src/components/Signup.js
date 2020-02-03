@@ -6,7 +6,7 @@ import { signUp } from "../actions/authActions";
 //React form
 import {useForm} from 'react-hook-form';
 
-//For linking after signup button click
+//For navigating to login page after signup button click
 import {useHistory} from 'react-router-dom';
 
 
@@ -26,14 +26,13 @@ const Signup = () => {
   //Signup action goes here
   const onSubmit = values => {
     console.log(values)
-    history.push('/login')
   }
 
   return (
    
 
     <Container maxWidth='xs'>
-      <Grid container justify="center" direction='column' style={{ margin: '50px 0' }}>
+      <Grid container justify="center" direction='column' style={{ margin: '40px 0' }}>
 
         <Typography variant="h4" style={{ marginBottom: "10px", textAlign: 'center' }}>
           Sign Up
@@ -87,7 +86,7 @@ const Signup = () => {
           <TextField
             label="Description"
             multiline
-            rows="4"
+            rows="3"
             placeholder="A brief description of your business or organization."
             variant="outlined"
             name="description"
