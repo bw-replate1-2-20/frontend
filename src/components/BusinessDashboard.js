@@ -1,5 +1,12 @@
+// GET ALL UNIQUE BUSINESS REQUEST LIST, REDER TO THE PAGE.
+// CREATE REQUEST FORM
+// PASS ACTIONS AS PROPS TO OTHER COMPONENTS
+
 import React, { useState } from "react";
 import { connect } from "react-redux";
+
+/* import RequestList from "./RequestList" */
+/* import CreateRequestForm from "./CreateRequestForm" */
 
 import {
   getRequests,
@@ -15,6 +22,7 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     id: state.authReducer.id,
+    location: state.authReducer.location,
     requests: state.requestReducer.requests
   };
 };

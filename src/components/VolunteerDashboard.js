@@ -1,9 +1,13 @@
+// GET ALL REQUESTS, REDER TO THE PAGE.
+// PASS ACTIONS AS PROPS TO OTHER COMPONENTS
+
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+/* import RequestList from "./RequestList" */
+
 import {
   getRequests,
-  createRequest,
   updateRequest,
   deleteRequest
 } from "../actions/requestActions";
@@ -22,7 +26,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   getRequests,
-  createRequest,
   updateRequest,
   deleteRequest
 })(VolunteerDashboard);

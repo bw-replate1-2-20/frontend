@@ -31,6 +31,7 @@ export const signUp = (userInfo, history) => dispatch => {
 };
 
 export const login = (userInfo, history) => dispatch => {
+  console.log("in the login form", userInfo);
   dispatch({ type: "LOGIN_START" });
   if (userInfo.isBusiness) {
     axios

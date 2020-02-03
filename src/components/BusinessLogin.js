@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { useForm } from "react-hook-form";
 
 import { login } from "../actions/authActions";
 
@@ -12,7 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
-const Login = () => {
+const Login = props => {
   const [formValue, setFormValue] = useState({ username: "", password: "" });
 
   const handleChange = e => {
@@ -22,6 +23,7 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formValue);
+    props.login(formValue);
   };
 
   return (
