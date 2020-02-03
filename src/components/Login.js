@@ -36,7 +36,7 @@ const Login = props => {
             required
             fullWidth
             id="username"
-            label="username"
+            label="Username"
             name="username"
             autoComplete="username"
             style={{ margin: "15px 0", backgroundColor: "white" }}
