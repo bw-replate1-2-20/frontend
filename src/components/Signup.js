@@ -3,56 +3,60 @@ import { connect } from "react-redux";
 
 import { signUp } from "../actions/authActions";
 
+//React form
+import {useForm} from 'react-hook-form';
+
+//For navigating to login page after signup button click
+import {useHistory} from 'react-router-dom';
+
+
 // material ui
-import Avatar from "@material-ui/core/Avatar";
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
 
 const Signup = () => {
-  const [formValue, setFormValue] = useState({ username: "", password: "" });
+  
+  const [isBusiness, setIsBusiness] = useState(false);
 
-  const handleChange = e => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
+  let history = useHistory()
+  const { handleSubmit, register, error } = useForm();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(formValue);
-  };
+  //Signup action goes here
+  const onSubmit = values => {
+    console.log(values)
+  }
 
   return (
-    // user sigup form goes here
-    // form distinguishes volunteers from businesses
-    // render extra form fields if user is a business
+   
 
-    // DEFINATELY DONT USE THE CODE BELOW (use it if you want, but by no means feel obligated)
-    // MAKE YOUR OWN FOR WITH REACT-HOOK-FORM
-    // AND STYLE IT ACCORDINGLY, THIS IS JUST PLACEHOLDER TO GET A FEEL FOR EVERYTHING
-    //
-
-    <Grid container component="main" justify="center">
-      <Grid
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "50px"
-        }}
-        xs={12}
-        sm={8}
-        md={5}
-      >
-        <Typography variant="h4" style={{ marginBottom: "10px" }}>
+    <Container maxWidth='xs'>
+      <Grid container justify="center" direction='column' style={{ marginTop: '25px' }}>
+        
+        <Typography variant="h4" style={{ marginBottom: "10px", textAlign: 'center' }}>
           Sign Up
         </Typography>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <form noValidate>
+
+        <ButtonGroup fullWidth variant='contained'>
+          <Button
+          color={isBusiness ? 'default' : 'primary'}
+          onClick={() => {setIsBusiness(false)}}>
+            Volunteer
+          </Button>
+          <Button
+          color={isBusiness ? 'primary' : 'default'}
+          onClick={() => {setIsBusiness(true)}}
+          >
+            Business
+          </Button>
+        </ButtonGroup>
+
+
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -60,8 +64,9 @@ const Signup = () => {
             fullWidth
             label="Username"
             name="username"
-            onChange={handleChange}
             autoComplete="username"
+            
+            inputRef={register}
           />
           <TextField
             variant="outlined"
@@ -71,19 +76,21 @@ const Signup = () => {
             name="password"
             label="Password"
             type="password"
-            onChange={handleChange}
             autoComplete="current-password"
+
+            inputRef={register}
           />
-          <TextField
+         {isBusiness && <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             name="location"
             label="Location"
-            onChange={handleChange}
             autoComplete="current-password"
-          />
+
+            inputRef={register}
+          />}
           <TextField
             variant="outlined"
             margin="normal"
@@ -91,24 +98,26 @@ const Signup = () => {
             fullWidth
             name="phone"
             label="Phone Number"
-            onChange={handleChange}
+
+            inputRef={register}
           />
-          <TextField
+          {isBusiness && <TextField
             label="Description"
             multiline
-            rows="4"
-            defaultValue="Business Description"
+            rows="3"
+            placeholder="A brief description of your business or organization."
             variant="outlined"
             name="description"
             margin="normal"
             style={{ width: "100%" }}
-          />
+
+            inputRef={register}
+          />}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
             style={{ margin: "15px 0" }}
           >
             Sign Up
@@ -123,7 +132,8 @@ const Signup = () => {
           </Grid>
         </form>
       </Grid>
-    </Grid>
+
+    </Container>
   );
 };
 
