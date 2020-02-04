@@ -28,7 +28,13 @@ const ViewRequestDetails = props => {
   };
 
   const pickedUpRequest = () => {
-    props.updateRequest();
+    const payload = {
+      ...props.request,
+      volunteer_id: JSON.parse(localStorage.getItem("id"))
+    };
+    console.log("payload", payload);
+    props.updateRequest(payload, props.request.id);
+    nextPage.push("/volunteerDashboard");
   };
 
   const completeRequest = () => {
@@ -48,15 +54,39 @@ const ViewRequestDetails = props => {
         <h2>{props.request.title}</h2>
         <p>quantity: {props.request.quantity}</p>
         <p>description: {props.request.description}</p>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            acceptRequest();
-          }}
-        >
-          Accept Pickup Request
-        </Button>
+        {props.request.picked_up === null && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              acceptRequest();
+            }}
+          >
+            Accept Pickup Request
+          </Button>
+        )}
+        {props.request.picked_up && props.request.delivered === null && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              pickedUpRequest();
+            }}
+          >
+            Request Had Been Picked Up
+          </Button>
+        )}
+        {props.request.delivered && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              pickedUpRequest();
+            }}
+          >
+            Completed Pickup Request
+          </Button>
+        )}
       </Grid>
     </Container>
   );

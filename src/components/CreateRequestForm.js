@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 // actions
 import { createRequest } from "../actions/requestActions";
@@ -13,37 +14,39 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
 
-
 //Date handling utility
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
 //Material ui date pickers and utlity provider wrapper
 import {
   MuiPickersUtilsProvider,
   TimePicker,
-  DatePicker,
-} from '@material-ui/pickers';
+  DatePicker
+} from "@material-ui/pickers";
 
 const CreateRequestForm = props => {
-
-
+  const nextPage = useHistory();
   // Date change handler
   const [selectedTime, setSelectedTime] = useState(Date.now());
   const handleTimeChange = date => {
     setSelectedTime(Math.round(new Date(date).getTime()));
   };
 
-  useEffect(() => {
-    console.log(selectedTime)
-  }, [selectedTime])
+  useEffect(() => {}, [selectedTime]);
 
   const { handleSubmit, register, error } = useForm();
 
-
   //Login action goes here
   const onSubmit = values => {
-    const sendVals = { ...values, business_id: localStorage.getItem("id"), ready_by: selectedTime };
-    console.log(sendVals);
-    props.createRequest(values);
+    const sendVals = {
+      ...values,
+      volunteer_id: null,
+      delivered: null,
+      picked_up: null,
+      business_id: JSON.parse(localStorage.getItem("id")),
+      ready_by: selectedTime
+    };
+    props.createRequest(sendVals);
+    nextPage.push("/businessDashboard");
   };
 
   return (
@@ -62,7 +65,6 @@ const CreateRequestForm = props => {
             id="title"
             label="Title"
             name="title"
-
             inputRef={register}
           />
           <TextField
@@ -85,9 +87,7 @@ const CreateRequestForm = props => {
             name="quantity"
             label="Quantity"
             id="quantity"
-
             placeholder="How much food is it? Weight, volume, etc."
-
             inputRef={register}
           />
 
@@ -101,9 +101,8 @@ const CreateRequestForm = props => {
               value={selectedTime}
               onChange={handleTimeChange}
               KeyboardButtonProps={{
-                'aria-label': 'change date',
+                "aria-label": "change date"
               }}
-
             />
             <TimePicker
               fullWidth
@@ -114,11 +113,9 @@ const CreateRequestForm = props => {
               value={selectedTime}
               onChange={handleTimeChange}
               KeyboardButtonProps={{
-                'aria-label': 'change time',
+                "aria-label": "change time"
               }}
-
             />
-
           </MuiPickersUtilsProvider>
 
           <Button

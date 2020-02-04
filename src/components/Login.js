@@ -23,8 +23,6 @@ const Login = props => {
     props.login(values, props.history, isBusiness);
   };
 
-  console.log("history in login", props.history);
-
   return (
     //Reformatted forms with react useForm
     <Container maxWidth="xs">
