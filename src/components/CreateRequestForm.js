@@ -19,8 +19,8 @@ import DateFnsUtils from '@date-io/date-fns';
 //Material ui date pickers and utlity provider wrapper
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
+  TimePicker,
+  DatePicker,
 } from '@material-ui/pickers';
 
 const CreateRequestForm = props => {
@@ -92,8 +92,9 @@ const CreateRequestForm = props => {
           />
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
+            <DatePicker
               fullWidth
+              disablePast
               margin="normal"
               id="date"
               label="Date"
@@ -104,8 +105,9 @@ const CreateRequestForm = props => {
               }}
 
             />
-            <KeyboardTimePicker
+            <TimePicker
               fullWidth
+              disablePast
               margin="normal"
               id="time"
               label="Time"
