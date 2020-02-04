@@ -16,12 +16,14 @@ import { Container } from "@material-ui/core";
 
 const Login = props => {
   const [isBusiness, setIsBusiness] = useState(false);
-  const { handleSubmit, register, error } = useForm();
+  const { handleSubmit, register } = useForm();
 
   //Login action goes here
   const onSubmit = values => {
     props.login(values, props.history, isBusiness);
   };
+
+  console.log("history in login", props.history);
 
   return (
     //Reformatted forms with react useForm

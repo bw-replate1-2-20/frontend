@@ -8,12 +8,14 @@ import Signup from "./Signup";
 import BusinessDashboard from "./BusinessDashboard";
 import VolunteerDashboard from "./VolunteerDashboard";
 import CreateRequestForm from "./CreateRequestForm";
+import ViewRequestDetails from "./ViewRequestDetails";
 
 const App = () => {
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <PrivateRoute path="/requestDetails" component={ViewRequestDetails} />
         <PrivateRoute path="/createRequest" component={CreateRequestForm} />
         <PrivateRoute path="/businessDashboard" component={BusinessDashboard} />
         <PrivateRoute
