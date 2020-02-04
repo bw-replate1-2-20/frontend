@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { login } from "../actions/authActions";
 
 // material ui
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -14,12 +15,12 @@ import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
 const Login = props => {
+  const [isBusiness, setIsBusiness] = useState(false);
   const { handleSubmit, register, error } = useForm();
 
   //Login action goes here
   const onSubmit = values => {
-    console.log(values);
-    props.login(values, props.history);
+    props.login(values, props.history, isBusiness);
   };
 
   return (
@@ -39,6 +40,25 @@ const Login = props => {
           Back
         </Typography>
 
+        <ButtonGroup fullWidth variant="contained">
+          <Button
+            color={isBusiness ? "default" : "primary"}
+            onClick={() => {
+              setIsBusiness(false);
+            }}
+          >
+            Volunteer
+          </Button>
+          <Button
+            color={isBusiness ? "primary" : "default"}
+            onClick={() => {
+              setIsBusiness(true);
+            }}
+          >
+            Business
+          </Button>
+        </ButtonGroup>
+
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
@@ -46,9 +66,9 @@ const Login = props => {
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="Username"
-            name="username"
+            id="email"
+            label="Email"
+            name="email"
             autoComplete="username"
             inputRef={register}
           />

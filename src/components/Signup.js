@@ -24,7 +24,6 @@ const Signup = props => {
 
   //Signup action goes here
   const onSubmit = values => {
-    console.log(values);
     props.signUp(values, props.history, isBusiness);
   };
 

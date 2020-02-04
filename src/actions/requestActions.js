@@ -9,7 +9,7 @@ export const getRequests = (isBusiness, id) => {
         .then(res => {
           console.log(res);
           const filteredRes = res.data.filter(
-            request => request.business_id === userInfo.id
+            request => request.business_id === id
           );
           dispatch({ type: "GET_REQUESTS", payload: filteredRes });
         })
