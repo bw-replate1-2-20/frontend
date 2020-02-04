@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -11,16 +11,37 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-
-import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
+
+//Date handling utility
+import DateFnsUtils from '@date-io/date-fns';
+//Material ui date pickers and utlity provider wrapper
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 const CreateRequestForm = props => {
+
+
+  // Date change handler
+  const [selectedTime, setSelectedTime] = useState(Date.now());
+  const handleTimeChange = date => {
+    setSelectedTime(date);
+  };
+
+  useEffect(() => {
+    console.log(selectedTime)
+  }, [selectedTime])
+
   const { handleSubmit, register, error } = useForm();
+
 
   //Login action goes here
   const onSubmit = values => {
-    const sendVals = { ...values, business_id: localStorage.getItem("id") };
+    const sendVals = { ...values, business_id: localStorage.getItem("id"), ready_by: selectedTime };
     console.log(sendVals);
     props.createRequest(values);
   };
@@ -44,10 +65,21 @@ const CreateRequestForm = props => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="username"
+            id="title"
+            label="Title"
+            name="title"
+
+            inputRef={register}
+          />
+          <TextField
+            label="Description"
+            multiline
+            rows="3"
+            placeholder="Describe the food the volunteer will be picking up, as well as any other important details for when the volunteer arrives."
+            variant="outlined"
+            name="description"
+            margin="normal"
+            fullWidth
             inputRef={register}
           />
           <TextField
@@ -56,13 +88,49 @@ const CreateRequestForm = props => {
             color="primary"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
+            name="quantity"
+            label="Quantity"
+            id="quantity"
+
+            placeholder="How much food is it? Weight, volume, etc."
+
             inputRef={register}
           />
+
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              fullWidth
+              margin="normal"
+              id="date"
+              label="Date"
+              value={selectedTime}
+              onChange={handleTimeChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+
+              //To do: plug in format once Dan has format decided
+              //format=
+
+            />
+            <KeyboardTimePicker
+              fullWidth
+              margin="normal"
+              id="time"
+              label="Time"
+              value={selectedTime}
+              onChange={handleTimeChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change time',
+              }}
+
+              //To do: plug in format once Dan has format decided
+              //format=
+
+            />
+
+          </MuiPickersUtilsProvider>
+
           <Button
             type="submit"
             fullWidth
