@@ -29,7 +29,7 @@ const CreateRequestForm = props => {
   // Date change handler
   const [selectedTime, setSelectedTime] = useState(Date.now());
   const handleTimeChange = date => {
-    setSelectedTime(date);
+    setSelectedTime(Math.round(new Date(date).getTime()));
   };
 
   useEffect(() => {
@@ -47,13 +47,7 @@ const CreateRequestForm = props => {
   };
 
   return (
-    //Reformatted forms with react useForm
-
-    // values that need to be sent to the action
-    // title (string)
-    // description (string)
-    // quantity (string)
-    // ready_by (date and time)
+    //Date and time is currently in unix timestamp format (ms)
     <Container maxWidth="xs">
       <Grid justify="center" direction="column">
         <h2>Create a Pickup Request</h2>
@@ -109,9 +103,6 @@ const CreateRequestForm = props => {
                 'aria-label': 'change date',
               }}
 
-              //To do: plug in format once Dan has format decided
-              //format=
-
             />
             <KeyboardTimePicker
               fullWidth
@@ -123,9 +114,6 @@ const CreateRequestForm = props => {
               KeyboardButtonProps={{
                 'aria-label': 'change time',
               }}
-
-              //To do: plug in format once Dan has format decided
-              //format=
 
             />
 
