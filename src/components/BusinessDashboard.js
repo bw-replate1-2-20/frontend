@@ -5,7 +5,7 @@
 import React, { useEffect, useDebugValue } from "react";
 import { connect } from "react-redux";
 
-/* import RequestList from "./RequestList" */
+import RequestList from "./RequestList";
 /* import CreateRequestForm from "./CreateRequestForm" */
 
 import {
@@ -16,10 +16,15 @@ import {
 
 const BusinessDashboard = props => {
   useEffect(() => {
-    props.getRequests(props.location);
+    props.getRequests(true, props.id);
   }, []);
 
-  return <h1>Business Dashboard Component</h1>;
+  return (
+    <div>
+      <h1>Business Dashboard Component</h1>
+      <RequestList request={props.requests} id={props.id} isBusiness={true} />
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

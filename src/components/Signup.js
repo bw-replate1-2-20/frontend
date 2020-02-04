@@ -25,7 +25,7 @@ const Signup = props => {
   //Signup action goes here
   const onSubmit = values => {
     console.log(values);
-    props.signUp(values, props.history);
+    props.signUp(values, props.history, isBusiness);
   };
 
   return (
@@ -68,9 +68,19 @@ const Signup = props => {
             margin="normal"
             required
             fullWidth
-            label="Username"
-            name="username"
-            autoComplete="username"
+            label="Name"
+            name="name"
+            autoComplete="name"
+            inputRef={register}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Email"
+            name="email"
+            autoComplete="email"
             inputRef={register}
           />
           <TextField
@@ -90,8 +100,8 @@ const Signup = props => {
               margin="normal"
               required
               fullWidth
-              name="location"
-              label="Location"
+              name="address"
+              label="Address"
               autoComplete="current-password"
               inputRef={register}
             />

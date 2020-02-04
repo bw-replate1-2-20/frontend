@@ -13,7 +13,16 @@ import {
 } from "../actions/requestActions";
 
 const VolunteerDashboard = props => {
-  return <h1>Volunteer Dashboard Component</h1>;
+  useEffect(() => {
+    props.getRequests(false);
+  }, []);
+
+  return (
+    <div>
+      <h1>Volunteer Dashboard Component</h1>
+      <RequestList request={props.requests} id={props.id} isBusiness={false} />
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

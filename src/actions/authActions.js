@@ -1,10 +1,10 @@
 import axios from "axios";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
-export const signUp = (userInfo, history) => dispatch => {
+export const signUp = (userInfo, history, isBusiness) => dispatch => {
   console.log("in the signup form", userInfo);
   dispatch({ type: "SIGN_UP_START" });
-  if (userInfo.isBusiness) {
+  if (isBusiness) {
     axios
       .post(
         "https://replate-food-reuse.herokuapp.com/api/auth/register/business",
@@ -20,6 +20,7 @@ export const signUp = (userInfo, history) => dispatch => {
       })
       .catch(err => dispatch({ type: "SIGN_UP_FAILED", payload: err.message }));
   } else {
+    console.log("in sign up:", userInfo, isBusiness);
     axios
       .post(
         "https://replate-food-reuse.herokuapp.com/api/auth/register/volunteer",
@@ -70,7 +71,6 @@ export const login = (userInfo, history) => dispatch => {
         history.push("/volunteerDashboard");
       })
       .catch(err => {
-        history.push("/businessDashboard");
         dispatch({ type: "LOGIN_FAILED" });
       });
   }
