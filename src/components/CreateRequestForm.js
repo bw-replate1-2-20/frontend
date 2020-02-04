@@ -11,9 +11,13 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-
-import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const CreateRequestForm = props => {
   const { handleSubmit, register, error } = useForm();
@@ -44,25 +48,39 @@ const CreateRequestForm = props => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="username"
+            id="title"
+            label="Title"
+            name="title"
+            
             inputRef={register}
           />
+           <TextField
+              label="Description"
+              multiline
+              rows="3"
+              placeholder="Describe the food the volunteer will be picking up, as well as any other important details for when the volunteer arrives."
+              variant="outlined"
+              name="description"
+              margin="normal"
+              fullWidth
+              inputRef={register}
+            />
           <TextField
             variant="outlined"
             margin="normal"
             color="primary"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
+            name="quantity"
+            label="Quantity"
+            id="quantity"
+
+            placeholder="How much food is it? Weight, volume, etc."
+            
             inputRef={register}
           />
+
+  
           <Button
             type="submit"
             fullWidth
