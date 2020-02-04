@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { signUp } from "../actions/authActions";
@@ -18,12 +18,16 @@ import { Container } from "@material-ui/core";
 
 const Signup = (props) => {
   const [isBusiness, setIsBusiness] = useState(false);
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, errors } = useForm();
 
   //Signup action goes here
   const onSubmit = values => {
     props.signUp(values, props.history, isBusiness);
   };
+
+  useEffect(() => {
+    console.log(errors)
+  }, [errors])
 
   return (
     <Container maxWidth="xs">
@@ -78,7 +82,15 @@ const Signup = (props) => {
             label="Email"
             name="email"
             autoComplete="email"
-            inputRef={register}
+            inputRef={register({
+              required: 'Required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "invalid email address"
+              }
+            })}
+            error={errors.message === true}
+            helperText={errors.email && errors.email.message}
           />
           <TextField
             variant="outlined"
