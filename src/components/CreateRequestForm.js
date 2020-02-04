@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -13,23 +13,35 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
 
+
+//Date handling utility
+import DateFnsUtils from '@date-io/date-fns';
+//Material ui date pickers and utlity provider wrapper
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-} from '@material-ui/pickers/';
+} from '@material-ui/pickers';
 
 const CreateRequestForm = props => {
-  const { handleSubmit, register, error } = useForm();
-  const [selectedTime, setSelectedTime] = useState(Date.now())
 
-  const handleTime = event => {
-    setSelectedTime(event.target.value)
-  }
+
+  // Date change handler
+  const [selectedTime, setSelectedTime] = useState(Date.now());
+  const handleTimeChange = date => {
+    setSelectedTime(date);
+  };
+
+  useEffect(() => {
+    console.log(selectedTime)
+  }, [selectedTime])
+
+  const { handleSubmit, register, error } = useForm();
+
 
   //Login action goes here
   const onSubmit = values => {
-    const sendVals = { ...values, business_id: localStorage.getItem("id") };
+    const sendVals = { ...values, business_id: localStorage.getItem("id"), ready_by: selectedTime };
     console.log(sendVals);
     props.createRequest(values);
   };
@@ -56,20 +68,20 @@ const CreateRequestForm = props => {
             id="title"
             label="Title"
             name="title"
-            
+
             inputRef={register}
           />
-           <TextField
-              label="Description"
-              multiline
-              rows="3"
-              placeholder="Describe the food the volunteer will be picking up, as well as any other important details for when the volunteer arrives."
-              variant="outlined"
-              name="description"
-              margin="normal"
-              fullWidth
-              inputRef={register}
-            />
+          <TextField
+            label="Description"
+            multiline
+            rows="3"
+            placeholder="Describe the food the volunteer will be picking up, as well as any other important details for when the volunteer arrives."
+            variant="outlined"
+            name="description"
+            margin="normal"
+            fullWidth
+            inputRef={register}
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -81,35 +93,43 @@ const CreateRequestForm = props => {
             id="quantity"
 
             placeholder="How much food is it? Weight, volume, etc."
-            
+
             inputRef={register}
           />
 
-          <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker"
-          label="Date picker"
-          value={selectedTime}
-          onChange={handleTime}
-          
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              fullWidth
+              margin="normal"
+              id="date"
+              label="Date"
+              value={selectedTime}
+              onChange={handleTimeChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
 
-        <KeyboardTimePicker
-          margin="normal"
-          id="time-picker"
-          label="Time picker"
-          value={selectedTime}
-          onChange={handleTime}
-          KeyboardButtonProps={{
-            'aria-label': 'change time',
-          }}
-        />
+              //To do: plug in format once Dan has format decided
+              //format=
+
+            />
+            <KeyboardTimePicker
+              fullWidth
+              margin="normal"
+              id="time"
+              label="Time"
+              value={selectedTime}
+              onChange={handleTimeChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change time',
+              }}
+
+              //To do: plug in format once Dan has format decided
+              //format=
+
+            />
+
+          </MuiPickersUtilsProvider>
 
           <Button
             type="submit"
