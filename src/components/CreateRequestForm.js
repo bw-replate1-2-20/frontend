@@ -17,10 +17,15 @@ import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-} from '@material-ui/pickers';
+} from '@material-ui/pickers/';
 
 const CreateRequestForm = props => {
   const { handleSubmit, register, error } = useForm();
+  const [selectedTime, setSelectedTime] = useState(Date.now())
+
+  const handleTime = event => {
+    setSelectedTime(event.target.value)
+  }
 
   //Login action goes here
   const onSubmit = values => {
@@ -80,7 +85,32 @@ const CreateRequestForm = props => {
             inputRef={register}
           />
 
-  
+          <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker"
+          label="Date picker"
+          value={selectedTime}
+          onChange={handleTime}
+          
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+        <KeyboardTimePicker
+          margin="normal"
+          id="time-picker"
+          label="Time picker"
+          value={selectedTime}
+          onChange={handleTime}
+          KeyboardButtonProps={{
+            'aria-label': 'change time',
+          }}
+        />
+
           <Button
             type="submit"
             fullWidth
