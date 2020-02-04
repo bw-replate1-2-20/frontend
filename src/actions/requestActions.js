@@ -6,10 +6,12 @@ export const getRequests = (isBusiness, id) => {
       axiosWithAuth()
         .get("api/requests/all")
         .then(res => {
-          console.log(res);
-          const filteredRes = res.data.filter(
-            request => request.business_id === id
-          );
+          console.log("@getRequests", res.data);
+          let filteredRes = res.data.filter(request => {
+            console.log("inFilter:", request.business_id, id);
+            return request.business_id == id;
+          });
+          console.log("@getRequests", filteredRes);
           dispatch({ type: "GET_REQUESTS", payload: filteredRes });
         })
         .catch(err => {
@@ -48,6 +50,7 @@ export const getSingleRequest = requestID => {
 };
 
 export const createRequest = payload => {
+  console.log("CR payload:", payload);
   return dispatch => {
     axiosWithAuth()
       .post("api/requests", payload)
