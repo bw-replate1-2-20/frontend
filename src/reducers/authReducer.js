@@ -3,8 +3,10 @@ const initialState = {
   isFetching: false,
   email: "",
   password: "",
-  location: null,
-  description: null
+  address: null,
+  description: null,
+  name: "",
+  phone: ""
 };
 
 export const authReducer = (state = initialState, action) => {

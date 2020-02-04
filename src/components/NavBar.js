@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // material ui
+import { Container } from "@material-ui/core";
+
+import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -31,15 +34,19 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Replate
-          </Typography>
-          <Button href="/login" color="inherit">
-            login
-          </Button>
-        </Toolbar>
+      <AppBar position="static" color="secondary">
+        <Container maxWidth="md">
+          <Grid>
+            <Toolbar>
+              <Typography variant="h4" className={classes.title}>
+                Replate
+              </Typography>
+              <Button href="/login" color="inherit">
+                login
+              </Button>
+            </Toolbar>
+          </Grid>
+        </Container>
       </AppBar>
     </div>
   );
