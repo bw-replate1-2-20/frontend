@@ -5,8 +5,13 @@
 import React, { useEffect, useDebugValue } from "react";
 import { connect } from "react-redux";
 
-/* import RequestList from "./RequestList" */
+import RequestList from "./RequestList";
 /* import CreateRequestForm from "./CreateRequestForm" */
+
+// material ui
+import { Container } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 import {
   getRequests,
@@ -16,10 +21,24 @@ import {
 
 const BusinessDashboard = props => {
   useEffect(() => {
-    props.getRequests(props.location);
+    props.getRequests(true, props.id);
   }, []);
 
-  return <h1>Business Dashboard Component</h1>;
+  return (
+    <Container maxWidth="xs">
+      <Grid justify="center" direction="column">
+        <h1>My Requests</h1>
+        <Button variant="contained" color="primary" href="/createRequest">
+          Create Request
+        </Button>
+        <RequestList
+          requests={props.requests}
+          id={props.id}
+          isBusiness={true}
+        />
+      </Grid>
+    </Container>
+  );
 };
 
 const mapStateToProps = state => {
