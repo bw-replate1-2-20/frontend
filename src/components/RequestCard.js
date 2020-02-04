@@ -3,7 +3,7 @@ import { Paper, Typography } from "@material-ui/core";
 
 export default function Request(props) {
   return (
-    <Paper>
+    <Paper style={{ marginBottom: "30px" }}>
       <Typography variant="h3">{props.title}</Typography>
       <Typography variant="body1">{props.description}</Typography>
       <Typography variant="body1">{props.ready_by}</Typography>

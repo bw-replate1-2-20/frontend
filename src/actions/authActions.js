@@ -44,7 +44,7 @@ export const login = (userInfo, history, isBusiness) => dispatch => {
       )
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("id", res.data.user_id);
+        localStorage.setItem("id", res.data.id);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
         history.push("/businessDashboard");
@@ -58,7 +58,7 @@ export const login = (userInfo, history, isBusiness) => dispatch => {
       )
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("id", res.data.user_id);
+        localStorage.setItem("id", res.data.id);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
         history.push("/volunteerDashboard");

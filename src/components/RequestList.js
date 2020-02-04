@@ -21,6 +21,11 @@ import {
 } from "../actions/requestActions";
 
 const RequestList = props => {
+  console.log("in request list props.id:", props.id);
+  console.log(
+    "in request list localStorage.getItem('id')",
+    localStorage.getItem("id")
+  );
   return (
     <div>
       {!props.isBusiness &&
