@@ -19,8 +19,8 @@ import DateFnsUtils from '@date-io/date-fns';
 //Material ui date pickers and utlity provider wrapper
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
+  TimePicker,
+  DatePicker,
 } from '@material-ui/pickers';
 
 const CreateRequestForm = props => {
@@ -29,7 +29,7 @@ const CreateRequestForm = props => {
   // Date change handler
   const [selectedTime, setSelectedTime] = useState(Date.now());
   const handleTimeChange = date => {
-    setSelectedTime(date);
+    setSelectedTime(Math.round(new Date(date).getTime()));
   };
 
   useEffect(() => {
@@ -47,15 +47,9 @@ const CreateRequestForm = props => {
   };
 
   return (
-    //Reformatted forms with react useForm
-
-    // values that need to be sent to the action
-    // title (string)
-    // description (string)
-    // quantity (string)
-    // ready_by (date and time)
+    //Date and time is currently in unix timestamp format (ms)
     <Container maxWidth="xs">
-      <Grid justify="center" direction="column">
+      <Grid container justify="center" direction="column">
         <h2>Create a Pickup Request</h2>
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -98,8 +92,9 @@ const CreateRequestForm = props => {
           />
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
+            <DatePicker
               fullWidth
+              disablePast
               margin="normal"
               id="date"
               label="Date"
@@ -109,12 +104,10 @@ const CreateRequestForm = props => {
                 'aria-label': 'change date',
               }}
 
-              //To do: plug in format once Dan has format decided
-              //format=
-
             />
-            <KeyboardTimePicker
+            <TimePicker
               fullWidth
+              disablePast
               margin="normal"
               id="time"
               label="Time"
@@ -123,9 +116,6 @@ const CreateRequestForm = props => {
               KeyboardButtonProps={{
                 'aria-label': 'change time',
               }}
-
-              //To do: plug in format once Dan has format decided
-              //format=
 
             />
 
