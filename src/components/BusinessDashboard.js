@@ -8,6 +8,11 @@ import { connect } from "react-redux";
 import RequestList from "./RequestList";
 /* import CreateRequestForm from "./CreateRequestForm" */
 
+// material ui
+import { Container } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+
 import {
   getRequests,
   createRequest,
@@ -20,10 +25,13 @@ const BusinessDashboard = props => {
   }, []);
 
   return (
-    <div>
-      <h1>Business Dashboard Component</h1>
-      <RequestList request={props.requests} id={props.id} isBusiness={true} />
-    </div>
+    <Container maxWidth="xs">
+      <Grid justify="center" direction="column">
+        <h1>My Requests</h1>
+        <Button color="primary">Create Request</Button>
+        <RequestList request={props.requests} id={props.id} isBusiness={true} />
+      </Grid>
+    </Container>
   );
 };
 

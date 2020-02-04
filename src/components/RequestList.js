@@ -24,6 +24,7 @@ const RequestList = props => {
   return (
     <div>
       {!props.isBusiness &&
+        props.requests &&
         props.requests.map(request => {
           return (
             <RequestCard
@@ -34,6 +35,7 @@ const RequestList = props => {
           );
         })}
       {props.isBusiness &&
+        props.requests &&
         props.requests.map(request => {
           if (props.id == request.business_id) {
             return (
@@ -45,6 +47,9 @@ const RequestList = props => {
             );
           }
         })}
+      {props.isBusiness && !props.requests && (
+        <p>No requests yet. Create requests to have them appear here.</p>
+      )}
     </div>
   );
 };
