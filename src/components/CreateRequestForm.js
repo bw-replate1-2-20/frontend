@@ -49,7 +49,7 @@ const CreateRequestForm = props => {
   return (
     //Date and time is currently in unix timestamp format (ms)
     <Container maxWidth="xs">
-      <Grid justify="center" direction="column">
+      <Grid container justify="center" direction="column">
         <h2>Create a Pickup Request</h2>
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
