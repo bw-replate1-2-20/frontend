@@ -32,6 +32,7 @@ const BusinessDashboard = props => {
           Create Request
         </Button>
         <RequestList
+          key={props.id}
           requests={props.requests}
           id={props.id}
           isBusiness={true}

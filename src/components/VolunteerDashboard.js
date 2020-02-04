@@ -9,6 +9,7 @@ import RequestList from "./RequestList";
 // material ui
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 
 import {
@@ -18,20 +19,46 @@ import {
 } from "../actions/requestActions";
 
 const VolunteerDashboard = props => {
-  console.log("in Volunteer Dashboard props.requests:", props.requests);
+  const [showAll, setShowAll] = useState(true);
+
   useEffect(() => {
     props.getRequests(false);
   }, []);
 
   return (
-    <Container maxWidth="xs">
-      <Grid justify="center" direction="column">
+    <Container maxWidth="xs" justify="center" direction="column">
+      <Grid>
         <h1>Pickup Requests</h1>
-        <RequestList
-          requests={props.requests}
-          id={props.id}
-          isBusiness={false}
-        />
+        <ButtonGroup
+          fullWidth
+          variant="contained"
+          style={{ marginBottom: "20px" }}
+        >
+          <Button
+            color={showAll ? "primary" : "default"}
+            onClick={() => {
+              setShowAll(true);
+            }}
+          >
+            All Pickups
+          </Button>
+          <Button
+            color={showAll ? "default" : "primary"}
+            onClick={() => {
+              setShowAll(false);
+            }}
+          >
+            My Pickups
+          </Button>
+        </ButtonGroup>
+        {showAll && (
+          <RequestList
+            key={props.id}
+            requests={props.requests}
+            id={props.id}
+            isBusiness={false}
+          />
+        )}
       </Grid>
     </Container>
   );

@@ -1,5 +1,4 @@
 import axios from "axios";
-import axiosWithAuth from "../utils/axiosWithAuth";
 
 export const signUp = (userInfo, history, isBusiness) => dispatch => {
   console.log("in the sigunup form", userInfo, isBusiness);

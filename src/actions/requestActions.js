@@ -1,4 +1,3 @@
-import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const getRequests = (isBusiness, id) => {
@@ -32,6 +31,22 @@ export const getRequests = (isBusiness, id) => {
   };
 };
 
+export const getSingleRequest = requestID => {
+  console.log("in getSingleRequest", requestID);
+  return dispatch => {
+    axiosWithAuth()
+      .get(`api/requests/${requestID}`)
+      .then(res => {
+        console.log(res);
+        dispatch({ type: "GET_SINGLE_REQUEST", payload: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: "REQUEST_ERROR", payload: err });
+      });
+  };
+};
+
 export const createRequest = payload => {
   return dispatch => {
     axiosWithAuth()
@@ -50,7 +65,7 @@ export const createRequest = payload => {
 export const updateRequest = (payload, id) => {
   return dispatch => {
     axiosWithAuth()
-      .post(`/api/requests/${id}`, payload)
+      .put(`/api/requests/${id}`, payload)
       .then(res => {
         console.log(res);
         dispatch({ type: "UPDATE_REQUEST", payload });
