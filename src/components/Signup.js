@@ -6,8 +6,6 @@ import { signUp } from "../actions/authActions";
 //React form
 import { useForm } from "react-hook-form";
 
-//For navigating to login page after signup button click
-import { useHistory } from "react-router-dom";
 
 // material ui
 import ButtonGroup from "@material-ui/core/ButtonGroup";
