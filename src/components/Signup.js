@@ -5,6 +5,8 @@ import { signUp } from "../actions/authActions";
 
 //React form
 import { useForm } from "react-hook-form";
+// yup for validation scheme
+import * as yup from "yup";
 
 
 // material ui
@@ -16,18 +18,37 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
-const Signup = (props) => {
-  const [isBusiness, setIsBusiness] = useState(false);
-  const { handleSubmit, register, errors } = useForm();
 
-  //Signup action goes here
+//validate on change function
+
+
+const Signup = (props) => {
+
+  const [isBusiness, setIsBusiness] = useState(false);
+
+
+  //Validation schema had to move into function for conditional validation off of isBusiness on description and address fields
+  const schema = yup.object().shape({
+    name: yup.string().required(`Please enter a username.`),
+    email: yup
+      .string()
+      .required(`Email is required.`)
+      .email(`Please enter a valid email.`),
+    password: yup.string().required(`Please enter a password.`).min(6, `Password must be at least six characters.`),
+    phone: yup.string().required(`Please enter a valid phone number.`),
+    address: isBusiness && yup.string().required(`Please enter an address.`),
+    description: isBusiness && yup.string().required(`Please enter a description.`)
+  });
+  //Useform with yup validation schema above
+  const { handleSubmit, register, errors, triggerValidation } = useForm({
+    validationSchema: schema
+  });
+  
+
+  //Signup action
   const onSubmit = values => {
     props.signUp(values, props.history, isBusiness);
   };
-
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
 
   return (
     <Container maxWidth="xs">
@@ -73,6 +94,15 @@ const Signup = (props) => {
             name="name"
             autoComplete="name"
             inputRef={register}
+
+            error={Boolean(errors.name)}
+            helperText={errors.name && errors.name.message}
+            onClick={async () => {
+              triggerValidation("name");
+            }}
+            onChange={async () => {
+              triggerValidation("name");
+            }}
           />
           <TextField
             variant="outlined"
@@ -82,15 +112,15 @@ const Signup = (props) => {
             label="Email"
             name="email"
             autoComplete="email"
-            inputRef={register({
-              required: 'Required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "invalid email address"
-              }
-            })}
-            error={errors.message === true}
+            inputRef={register}
+            error={Boolean(errors.email)}
             helperText={errors.email && errors.email.message}
+            onClick={async () => {
+              triggerValidation("email");
+            }}
+            onChange={async () => {
+              triggerValidation("email");
+            }}
           />
           <TextField
             variant="outlined"
@@ -102,6 +132,15 @@ const Signup = (props) => {
             type="password"
             autoComplete="current-password"
             inputRef={register}
+
+            error={Boolean(errors.password)}
+            helperText={errors.password && errors.password.message}
+            onClick={async () => {
+              triggerValidation("password");
+            }}
+            onChange={async () => {
+              triggerValidation("password");
+            }}
           />
           {isBusiness && (
             <TextField
@@ -111,8 +150,17 @@ const Signup = (props) => {
               fullWidth
               name="address"
               label="Address"
-              autoComplete="current-password"
+              autoComplete="street-address"
               inputRef={register}
+
+              error={Boolean(errors.address)}
+              helperText={errors.address && errors.address.message}
+              onClick={async () => {
+                triggerValidation("address");
+              }}
+              onChange={async () => {
+                triggerValidation("address");
+              }}
             />
           )}
           <TextField
@@ -123,6 +171,15 @@ const Signup = (props) => {
             name="phone"
             label="Phone Number"
             inputRef={register}
+
+            error={Boolean(errors.phone)}
+            helperText={errors.phone && errors.phone.message}
+            onClick={async () => {
+              triggerValidation("phone");
+            }}
+            onChange={async () => {
+              triggerValidation("phone");
+            }}
           />
           {isBusiness && (
             <TextField
@@ -135,6 +192,15 @@ const Signup = (props) => {
               margin="normal"
               style={{ width: "100%" }}
               inputRef={register}
+
+              error={Boolean(errors.description)}
+              helperText={errors.description && errors.description.message}
+              onClick={async () => {
+                triggerValidation("description");
+              }}
+              onChange={async () => {
+                triggerValidation("description");
+              }}
             />
           )}
           <Button
