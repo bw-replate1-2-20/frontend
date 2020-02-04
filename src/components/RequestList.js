@@ -21,6 +21,18 @@ import {
 } from "../actions/requestActions";
 
 const RequestList = props => {
+  const businessRequests = props.requests.map(request => {
+    return (
+      <RequestCard
+        title={request.title}
+        description={request.description}
+        ready_by={request.ready_by}
+      />
+    );
+  });
+
+  console.log("br", businessRequests);
+  console.log("ib", props.isBusiness);
   console.log("in request list props.id:", props.id);
   console.log(
     "in request list localStorage.getItem('id')",
@@ -28,17 +40,7 @@ const RequestList = props => {
   );
   return (
     <div>
-      {!props.isBusiness &&
-        props.requests &&
-        props.requests.map(request => {
-          return (
-            <RequestCard
-              title={request.title}
-              description={request.description}
-              ready_by={request.ready_by}
-            />
-          );
-        })}
+      {!props.isBusiness && props.requests && businessRequests}
       {props.isBusiness &&
         props.requests &&
         props.requests.map(request => {
@@ -52,7 +54,7 @@ const RequestList = props => {
             );
           }
         })}
-      {props.isBusiness && !props.requests && (
+      {props.isBusiness && businessRequests.length == 0 && (
         <p>No requests yet. Create requests to have them appear here.</p>
       )}
     </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 
+// actions
 import { createRequest } from "../actions/requestActions";
 
 // material ui
@@ -15,16 +16,23 @@ import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
 const CreateRequestForm = props => {
-  const [isBusiness, setIsBusiness] = useState(false);
   const { handleSubmit, register, error } = useForm();
 
   //Login action goes here
   const onSubmit = values => {
+    const sendVals = { ...values, business_id: localStorage.getItem("id") };
+    console.log(sendVals);
     props.createRequest(values);
   };
 
   return (
     //Reformatted forms with react useForm
+
+    // values that need to be sent to the action
+    // title (string)
+    // description (string)
+    // quantity (string)
+    // ready_by (date and time)
     <Container maxWidth="xs">
       <Grid justify="center" direction="column">
         <h2>Create a Pickup Request</h2>
