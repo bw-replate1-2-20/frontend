@@ -21,7 +21,7 @@ import {
 
 const BusinessDashboard = props => {
   useEffect(() => {
-    props.getRequests(true, props.id);
+    props.getRequests(true, localStorage.getItem("id"));
   }, []);
 
   return (
@@ -43,7 +43,6 @@ const BusinessDashboard = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     id: state.authReducer.id,
     location: state.authReducer.location,

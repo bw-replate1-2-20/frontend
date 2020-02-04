@@ -26,11 +26,7 @@ const RequestList = props => {
       {props.isBusiness &&
         props.requests &&
         props.requests.map(request => {
-          if (props.id === request.business_id) {
-            return <RequestCard request={request} key={request.id} />;
-          } else {
-            return [];
-          }
+          return <RequestCard request={request} key={request.id} />;
         })}
       {props.isBusiness && businessRequests.length === 0 && (
         <p>No requests yet. Create requests to have them appear here.</p>
