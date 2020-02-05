@@ -63,7 +63,7 @@ const ViewRequestDetails = props => {
         <p>description: {props.request.description}</p>
         {!props.isBusiness &&
           !props.request.picked_up &&
-          props.id == props.request.volunteer_id && (
+          !props.request.volunteer_id && (
             <Button
               variant="contained"
               color="primary"
