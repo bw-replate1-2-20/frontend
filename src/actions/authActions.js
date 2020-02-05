@@ -11,6 +11,7 @@ export const signUp = (userInfo, history, isBusiness) => dispatch => {
       )
       .then(res => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("isBusiness", true);
         localStorage.setItem("id", res.data.id);
         dispatch({ type: "SIGN_UP_SUCCESS", payload: res.data });
         history.push("/businessDashboard");
@@ -24,6 +25,7 @@ export const signUp = (userInfo, history, isBusiness) => dispatch => {
       )
       .then(res => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("isBusiness", false);
         localStorage.setItem("id", res.data.id);
         dispatch({ type: "SIGN_UP_SUCCESS", payload: res.data });
         history.push("/volunteerDashboard");
@@ -43,6 +45,7 @@ export const login = (userInfo, history, isBusiness) => dispatch => {
       )
       .then(res => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("isBusiness", true);
         localStorage.setItem("id", res.data.id);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
@@ -57,6 +60,7 @@ export const login = (userInfo, history, isBusiness) => dispatch => {
       )
       .then(res => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("isBusiness", false);
         localStorage.setItem("id", res.data.id);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
