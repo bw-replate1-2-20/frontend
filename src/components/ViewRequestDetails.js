@@ -10,7 +10,7 @@ import { updateRequest, deleteRequest } from "../actions/requestActions";
 // material ui
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { Container } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 
 import { useHistory } from "react-router-dom";
 
@@ -67,13 +67,16 @@ const ViewRequestDetails = props => {
     // ready_by (date and time)
     <Container maxWidth="xs">
       <Grid justify="center" direction="column">
-        <h2>{props.request.title}</h2>
-        <p>quantity: {props.request.quantity}</p>
-        <p>description: {props.request.description}</p>
+        <Typography variant='h6' align='center' style={{marginTop: '27px'}}>{props.request.title}</Typography>
+        <Typography variant='subtitle1'>Food Description:</Typography>
+        <Typography variant='body2'>{props.request.description}</Typography>
+        <Typography variant='subtitle1'>Item Count:</Typography>
+        <Typography variant='body2'>{props.request.quantity}</Typography>
         {!props.isBusiness &&
           !props.request.picked_up &&
           !props.request.volunteer_id && (
-            <Button
+            <Button fullWidth
+            style={{marginTop: '50px'}}
               variant="contained"
               color="primary"
               onClick={() => {
@@ -86,31 +89,34 @@ const ViewRequestDetails = props => {
         {!props.isBusiness &&
           !props.request.picked_up &&
           props.request.volunteer_id && (
-            <Button
+            <Button fullWidth
+            style={{marginTop: '50px'}}
               variant="contained"
               color="primary"
               onClick={() => {
                 pickedUpRequest();
               }}
             >
-              Request Has Been Picked Up
+              Mark as In-transit
             </Button>
           )}
         {!props.isBusiness &&
           !props.request.delivered &&
           props.request.picked_up && (
-            <Button
+            <Button fullWidth
+            style={{marginTop: '50px'}}
               variant="contained"
               color="primary"
               onClick={() => {
                 completeRequest();
               }}
             >
-              Completed Pickup Request
+              Mark As Completed
             </Button>
           )}
         {props.isBusiness && (
-          <Button
+          <Button fullWidth
+          style={{marginTop: '50px'}}
             variant="contained"
             color="primary"
             onClick={() => {
