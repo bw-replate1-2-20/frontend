@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { connect } from "react-redux";
 
+
 // material ui
 import { Container, Drawer } from "@material-ui/core";
 
@@ -42,12 +43,20 @@ function NavBar(props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const logout = useHistory();
+  
 
   return (
 
     <>
 
     <Drawer open={drawerOpen} PaperProps={{style: {width: '100%'}}}>
+
+      {!JSON.parse(localStorage.getItem('isBusiness')) && localStorage.getItem('id') && 
+       <> <RouterLink to="/volunteerDashboardAll">All requests</RouterLink>
+        <RouterLink to="/volunteerDashboardPersonal">My Requests</RouterLink></>
+      }
+
+
     <Button color='primary' variant='contained' onClick={() => {
                 setDrawerOpen(!drawerOpen);
               }}>Drawer</Button>

@@ -28,7 +28,7 @@ export const signUp = (userInfo, history, isBusiness) => dispatch => {
         localStorage.setItem("isBusiness", false);
         localStorage.setItem("id", res.data.id);
         dispatch({ type: "SIGN_UP_SUCCESS", payload: res.data });
-        history.push("/volunteerDashboard");
+        history.push("/volunteerDashboardAll");
       })
       .catch(err => dispatch({ type: "SIGN_UP_FAILED", payload: err.message }));
   }
@@ -64,7 +64,7 @@ export const login = (userInfo, history, isBusiness) => dispatch => {
         localStorage.setItem("id", res.data.id);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
-        history.push("/volunteerDashboard");
+        history.push("/volunteerDashboardAll");
       })
       .catch(err => {
         dispatch({ type: "LOGIN_FAILED" });

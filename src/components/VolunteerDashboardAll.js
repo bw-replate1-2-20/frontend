@@ -12,47 +12,26 @@ import Grid from "@material-ui/core/Grid";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 
+import {axiosWithAuth} from '../utils/axiosWithAuth';
+
 import {
   getRequests,
   updateRequest,
   deleteRequest
 } from "../actions/requestActions";
 
-const VolunteerDashboard = props => {
-  const [showAll, setShowAll] = useState(true);
+const VolunteerDashboardAll = props => {
 
   useEffect(() => {
     props.getRequests(false);
-  }, [showAll]);
+  }, []);
 
   console.log(props.requests);
   return (
     <Container maxWidth="xs" justify="center" direction="column">
       <Grid>
-        <h1>Pickup Requests</h1>
-        <ButtonGroup
-          fullWidth
-          variant="contained"
-          style={{ marginBottom: "20px" }}
-        >
-          <Button
-            color={showAll ? "primary" : "default"}
-            onClick={() => {
-              setShowAll(true);
-            }}
-          >
-            All Pickups
-          </Button>
-          <Button
-            color={showAll ? "default" : "primary"}
-            onClick={() => {
-              setShowAll(false);
-            }}
-          >
-            My Pickups
-          </Button>
-        </ButtonGroup>
-        {showAll && (
+        <h1>All Pickup Requests</h1>
+        
           <RequestList
             key={props.id}
             requests={props.requests}
@@ -60,16 +39,7 @@ const VolunteerDashboard = props => {
             getAll={true}
             isBusiness={false}
           />
-        )}
-        {!showAll && (
-          <RequestList
-            key={props.id}
-            requests={props.requests}
-            id={props.id}
-            getAll={false}
-            isBusiness={false}
-          />
-        )}
+     
       </Grid>
     </Container>
   );
@@ -87,4 +57,4 @@ export default connect(mapStateToProps, {
   getRequests,
   updateRequest,
   deleteRequest
-})(VolunteerDashboard);
+})(VolunteerDashboardAll);
