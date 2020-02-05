@@ -28,7 +28,12 @@ const BusinessDashboard = props => {
     <Container maxWidth="xs">
       <Grid justify="center" direction="column">
         <h1>My Requests</h1>
-        <Button variant="contained" color="primary" href="/createRequest">
+        <Button
+          variant="contained"
+          color="primary"
+          href="/createRequest"
+          style={{ marginBottom: "20px" }}
+        >
           Create Request
         </Button>
         <RequestList

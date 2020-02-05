@@ -30,7 +30,7 @@ const ViewRequestDetails = props => {
   const pickedUpRequest = () => {
     const payload = {
       ...props.request,
-      volunteer_id: JSON.parse(localStorage.getItem("id"))
+      picked_up: 1
     };
     console.log("payload", payload);
     props.updateRequest(payload, props.request.id);
@@ -38,8 +38,15 @@ const ViewRequestDetails = props => {
   };
 
   const completeRequest = () => {
-    props.updateRequest();
+    const payload = {
+      ...props.request,
+      delivered: 1
+    };
+    props.updateRequest(payload, props.request.id);
+    nextPage.push("/volunteerDashboard");
   };
+
+  console.log("are they the same?", props.id, props.request.volunteer_id);
 
   return (
     //Reformatted forms with react useForm
@@ -54,47 +61,56 @@ const ViewRequestDetails = props => {
         <h2>{props.request.title}</h2>
         <p>quantity: {props.request.quantity}</p>
         <p>description: {props.request.description}</p>
-        {props.request.picked_up === null && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              acceptRequest();
-            }}
-          >
-            Accept Pickup Request
-          </Button>
-        )}
-        {props.request.picked_up && props.request.delivered === null && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              pickedUpRequest();
-            }}
-          >
-            Request Had Been Picked Up
-          </Button>
-        )}
-        {props.request.delivered && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              pickedUpRequest();
-            }}
-          >
-            Completed Pickup Request
-          </Button>
-        )}
+        {!props.isBusiness &&
+          !props.request.picked_up &&
+          !props.request.volunteer_id && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                acceptRequest();
+              }}
+            >
+              Accept Pickup Request
+            </Button>
+          )}
+        {!props.isBusiness &&
+          !props.request.picked_up &&
+          props.request.volunteer_id && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                pickedUpRequest();
+              }}
+            >
+              Request Has Been Picked Up
+            </Button>
+          )}
+        {!props.isBusiness &&
+          !props.request.delivered &&
+          props.request.picked_up && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                completeRequest();
+              }}
+            >
+              Completed Pickup Request
+            </Button>
+          )}
       </Grid>
     </Container>
   );
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    request: state.requestReducer.singleRequest
+    id: state.authReducer.id,
+    request: state.requestReducer.singleRequest,
+    isBusiness: state.authReducer.address
   };
 };
 
