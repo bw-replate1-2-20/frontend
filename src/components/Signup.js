@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 // yup for validation scheme
 import * as yup from "yup";
 
-
 // material ui
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
@@ -18,14 +17,12 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
+import { Link as RouterLink } from "react-router-dom";
 
 //validate on change function
 
-
-const Signup = (props) => {
-
+const Signup = props => {
   const [isBusiness, setIsBusiness] = useState(false);
-
 
   //Validation schema had to move into function for conditional validation off of isBusiness on description and address fields
   const schema = yup.object().shape({
@@ -34,16 +31,19 @@ const Signup = (props) => {
       .string()
       .required(`Email is required.`)
       .email(`Please enter a valid email.`),
-    password: yup.string().required(`Please enter a password.`).min(6, `Password must be at least six characters.`),
+    password: yup
+      .string()
+      .required(`Please enter a password.`)
+      .min(6, `Password must be at least six characters.`),
     phone: yup.string().required(`Please enter a valid phone number.`),
     address: isBusiness && yup.string().required(`Please enter an address.`),
-    description: isBusiness && yup.string().required(`Please enter a description.`)
+    description:
+      isBusiness && yup.string().required(`Please enter a description.`)
   });
   //Useform with yup validation schema above
   const { handleSubmit, register, errors, triggerValidation } = useForm({
     validationSchema: schema
   });
-  
 
   //Signup action
   const onSubmit = values => {
@@ -94,7 +94,6 @@ const Signup = (props) => {
             name="name"
             autoComplete="name"
             inputRef={register}
-
             error={Boolean(errors.name)}
             helperText={errors.name && errors.name.message}
             onClick={async () => {
@@ -132,7 +131,6 @@ const Signup = (props) => {
             type="password"
             autoComplete="current-password"
             inputRef={register}
-
             error={Boolean(errors.password)}
             helperText={errors.password && errors.password.message}
             onClick={async () => {
@@ -152,7 +150,6 @@ const Signup = (props) => {
               label="Address"
               autoComplete="street-address"
               inputRef={register}
-
               error={Boolean(errors.address)}
               helperText={errors.address && errors.address.message}
               onClick={async () => {
@@ -171,7 +168,6 @@ const Signup = (props) => {
             name="phone"
             label="Phone Number"
             inputRef={register}
-
             error={Boolean(errors.phone)}
             helperText={errors.phone && errors.phone.message}
             onClick={async () => {
@@ -192,7 +188,6 @@ const Signup = (props) => {
               margin="normal"
               style={{ width: "100%" }}
               inputRef={register}
-
               error={Boolean(errors.description)}
               helperText={errors.description && errors.description.message}
               onClick={async () => {
@@ -215,7 +210,7 @@ const Signup = (props) => {
           <br />
           <Grid container justify="center">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link component={RouterLink} to="/login" variant="body2">
                 Already have an account? Log In
               </Link>
             </Grid>
