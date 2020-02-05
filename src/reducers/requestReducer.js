@@ -1,5 +1,6 @@
 const initialState = {
   error: null,
+  singleRequest: {},
   requests: []
 };
 
@@ -9,6 +10,11 @@ export const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         requests: [...action.payload]
+      };
+    case "GET_SINGLE_REQUEST":
+      return {
+        ...state,
+        singleRequest: { ...action.payload }
       };
     case "CREATE_REQUEST":
       return {

@@ -2,11 +2,16 @@
 // CREATE REQUEST FORM
 // PASS ACTIONS AS PROPS TO OTHER COMPONENTS
 
-import React, { useState } from "react";
+import React, { useEffect, useDebugValue } from "react";
 import { connect } from "react-redux";
 
-/* import RequestList from "./RequestList" */
+import RequestList from "./RequestList";
 /* import CreateRequestForm from "./CreateRequestForm" */
+
+// material ui
+import { Container } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 import {
   getRequests,
@@ -15,11 +20,34 @@ import {
 } from "../actions/requestActions";
 
 const BusinessDashboard = props => {
-  return <h1>Business Dashboard Component</h1>;
+  useEffect(() => {
+    props.getRequests(true, localStorage.getItem("id"));
+  }, []);
+
+  return (
+    <Container maxWidth="xs">
+      <Grid justify="center" direction="column">
+        <h1>My Requests</h1>
+        <Button
+          variant="contained"
+          color="primary"
+          href="/createRequest"
+          style={{ marginBottom: "20px" }}
+        >
+          Create Request
+        </Button>
+        <RequestList
+          key={props.id}
+          requests={props.requests}
+          id={props.id}
+          isBusiness={true}
+        />
+      </Grid>
+    </Container>
+  );
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     id: state.authReducer.id,
     location: state.authReducer.location,

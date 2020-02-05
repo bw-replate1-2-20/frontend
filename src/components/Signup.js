@@ -1,67 +1,125 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { signUp } from "../actions/authActions";
 
+//React form
+import { useForm } from "react-hook-form";
+// yup for validation scheme
+import * as yup from "yup";
+
 // material ui
-import Avatar from "@material-ui/core/Avatar";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
 
-const Signup = () => {
-  const [formValue, setFormValue] = useState({ username: "", password: "" });
+import { Link as RouterLink } from "react-router-dom";
 
-  const handleChange = e => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
+//validate on change function
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(formValue);
+const Signup = props => {
+  const [isBusiness, setIsBusiness] = useState(false);
+
+  //Validation schema had to move into function for conditional validation off of isBusiness on description and address fields
+  const schema = yup.object().shape({
+    name: yup.string().required(`Please enter a username.`),
+    email: yup
+      .string()
+      .required(`Email is required.`)
+      .email(`Please enter a valid email.`),
+    password: yup
+      .string()
+      .required(`Please enter a password.`)
+      .min(6, `Password must be at least six characters.`),
+    phone: yup.string().required(`Please enter a valid phone number.`),
+    address: isBusiness && yup.string().required(`Please enter an address.`),
+    description:
+      isBusiness && yup.string().required(`Please enter a description.`)
+  });
+  //Useform with yup validation schema above
+  const { handleSubmit, register, errors, triggerValidation } = useForm({
+    validationSchema: schema
+  });
+
+  //Signup action
+  const onSubmit = values => {
+    props.signUp(values, props.history, isBusiness);
   };
 
   return (
-    // user sigup form goes here
-    // form distinguishes volunteers from businesses
-    // render extra form fields if user is a business
-
-    // DEFINATELY DONT USE THE CODE BELOW (use it if you want, but by no means feel obligated)
-    // MAKE YOUR OWN FOR WITH REACT-HOOK-FORM
-    // AND STYLE IT ACCORDINGLY, THIS IS JUST PLACEHOLDER TO GET A FEEL FOR EVERYTHING
-    //
-
-    <Grid container component="main" justify="center">
+    <Container maxWidth="xs">
       <Grid
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "50px"
-        }}
-        xs={12}
-        sm={8}
-        md={5}
+        container
+        justify="center"
+        direction="column"
+        style={{ marginTop: "25px" }}
       >
-        <Typography variant="h4" style={{ marginBottom: "10px" }}>
+        <Typography
+          variant="h4"
+          style={{ marginBottom: "10px", textAlign: "center" }}
+        >
           Sign Up
         </Typography>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <form noValidate>
+
+        <ButtonGroup fullWidth variant="contained">
+          <Button
+            color={isBusiness ? "default" : "primary"}
+            onClick={() => {
+              setIsBusiness(false);
+            }}
+          >
+            Volunteer
+          </Button>
+          <Button
+            color={isBusiness ? "primary" : "default"}
+            onClick={() => {
+              setIsBusiness(true);
+            }}
+          >
+            Business
+          </Button>
+        </ButtonGroup>
+
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            label="Username"
-            name="username"
-            onChange={handleChange}
-            autoComplete="username"
+            label="Name"
+            name="name"
+            autoComplete="name"
+            inputRef={register}
+            error={Boolean(errors.name)}
+            helperText={errors.name && errors.name.message}
+            onClick={async () => {
+              triggerValidation("name");
+            }}
+            onChange={async () => {
+              triggerValidation("name");
+            }}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Email"
+            name="email"
+            autoComplete="email"
+            inputRef={register}
+            error={Boolean(errors.email)}
+            helperText={errors.email && errors.email.message}
+            onClick={async () => {
+              triggerValidation("email");
+            }}
+            onChange={async () => {
+              triggerValidation("email");
+            }}
           />
           <TextField
             variant="outlined"
@@ -71,19 +129,37 @@ const Signup = () => {
             name="password"
             label="Password"
             type="password"
-            onChange={handleChange}
             autoComplete="current-password"
+            inputRef={register}
+            error={Boolean(errors.password)}
+            helperText={errors.password && errors.password.message}
+            onClick={async () => {
+              triggerValidation("password");
+            }}
+            onChange={async () => {
+              triggerValidation("password");
+            }}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="location"
-            label="Location"
-            onChange={handleChange}
-            autoComplete="current-password"
-          />
+          {isBusiness && (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="address"
+              label="Address"
+              autoComplete="street-address"
+              inputRef={register}
+              error={Boolean(errors.address)}
+              helperText={errors.address && errors.address.message}
+              onClick={async () => {
+                triggerValidation("address");
+              }}
+              onChange={async () => {
+                triggerValidation("address");
+              }}
+            />
+          )}
           <TextField
             variant="outlined"
             margin="normal"
@@ -91,24 +167,42 @@ const Signup = () => {
             fullWidth
             name="phone"
             label="Phone Number"
-            onChange={handleChange}
+            inputRef={register}
+            error={Boolean(errors.phone)}
+            helperText={errors.phone && errors.phone.message}
+            onClick={async () => {
+              triggerValidation("phone");
+            }}
+            onChange={async () => {
+              triggerValidation("phone");
+            }}
           />
-          <TextField
-            label="Description"
-            multiline
-            rows="4"
-            defaultValue="Business Description"
-            variant="outlined"
-            name="description"
-            margin="normal"
-            style={{ width: "100%" }}
-          />
+          {isBusiness && (
+            <TextField
+              label="Description"
+              multiline
+              rows="3"
+              placeholder="A brief description of your business or organization."
+              variant="outlined"
+              name="description"
+              margin="normal"
+              style={{ width: "100%" }}
+              inputRef={register}
+              error={Boolean(errors.description)}
+              helperText={errors.description && errors.description.message}
+              onClick={async () => {
+                triggerValidation("description");
+              }}
+              onChange={async () => {
+                triggerValidation("description");
+              }}
+            />
+          )}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
             style={{ margin: "15px 0" }}
           >
             Sign Up
@@ -116,14 +210,14 @@ const Signup = () => {
           <br />
           <Grid container justify="center">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link component={RouterLink} to="/login" variant="body2">
                 Already have an account? Log In
               </Link>
             </Grid>
           </Grid>
         </form>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 

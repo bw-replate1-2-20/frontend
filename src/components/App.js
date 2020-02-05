@@ -5,20 +5,26 @@ import PrivateRoute from "../utils/PrivateRoute";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import Signup from "./Signup";
+import BusinessDashboard from "./BusinessDashboard";
+import VolunteerDashboard from "./VolunteerDashboard";
+import CreateRequestForm from "./CreateRequestForm";
+import ViewRequestDetails from "./ViewRequestDetails";
 
 const App = () => {
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <PrivateRoute path="/businessDashboard">
-          {/* BUSINESS DASHBOARD */}
-        </PrivateRoute>
-        <PrivateRoute path="/volunteerDashboard">
-          {/* VOLUNTEER DASHBOARD */}
-        </PrivateRoute>
-        <Route path="/signup" component={Signup} />
+        <PrivateRoute path="/requestDetails" component={ViewRequestDetails} />
+        <PrivateRoute path="/createRequest" component={CreateRequestForm} />
+        <PrivateRoute path="/businessDashboard" component={BusinessDashboard} />
+        <PrivateRoute
+          path="/volunteerDashboard"
+          component={VolunteerDashboard}
+        />
+
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route path="/" component={Login} />
       </Switch>
     </BrowserRouter>
