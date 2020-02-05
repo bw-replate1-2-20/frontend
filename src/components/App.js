@@ -6,7 +6,9 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import Signup from "./Signup";
 import BusinessDashboard from "./BusinessDashboard";
-import VolunteerDashboard from "./VolunteerDashboard";
+import VolunteerDashboardAll from "./VolunteerDashboardAll";
+import VolunteerDashboardPersonal from "./VolunteerDashboardPersonal";
+
 import CreateRequestForm from "./CreateRequestForm";
 import ViewRequestDetails from "./ViewRequestDetails";
 
@@ -19,8 +21,12 @@ const App = () => {
         <PrivateRoute path="/createRequest" component={CreateRequestForm} />
         <PrivateRoute path="/businessDashboard" component={BusinessDashboard} />
         <PrivateRoute
-          path="/volunteerDashboard"
-          component={VolunteerDashboard}
+          path="/volunteerDashboardAll"
+          component={VolunteerDashboardAll}
+        />
+        <PrivateRoute
+          path="/volunteerDashboardPersonal"
+          component={VolunteerDashboardPersonal}
         />
 
         <Route path="/login" component={Login} />
