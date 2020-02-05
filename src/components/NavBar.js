@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { connect } from "react-redux";
 
 // material ui
-import { Container } from "@material-ui/core";
+import { Container, Drawer } from "@material-ui/core";
 
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -36,12 +36,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 function NavBar(props) {
   const classes = useStyles();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const logout = useHistory();
 
   return (
+
+    <>
+
+    <Drawer open={drawerOpen} PaperProps={{style: {width: '100%'}}}>
+    <Button color='primary' variant='contained' onClick={() => {
+                setDrawerOpen(!drawerOpen);
+              }}>Drawer</Button>
+    </Drawer>
+
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
         <Container maxWidth="md">
@@ -50,7 +61,10 @@ function NavBar(props) {
               <Typography variant="h4" className={classes.title}>
                 Replate
               </Typography>
-              {props.id && (
+              <Button color='primary' variant='contained' onClick={() => {
+                setDrawerOpen(!drawerOpen);
+              }}>Drawer</Button>
+              {localStorage.getItem("id") && (
                 <Button
                   onClick={() => {
                     localStorage.clear();
@@ -65,6 +79,9 @@ function NavBar(props) {
         </Container>
       </AppBar>
     </div>
+
+
+    </>
   );
 }
 
