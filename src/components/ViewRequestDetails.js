@@ -17,16 +17,17 @@ import { useHistory } from "react-router-dom";
 const ViewRequestDetails = props => {
   const nextPage = useHistory();
 
-  let offline = JSON.parse(localStorage.getItem("request"));
+  let offline = { ...JSON.parse(localStorage.getItem("request")) };
 
-  console.log(props.request);
+  console.log(offline);
+
   const acceptRequest = () => {
     const payload = {
       ...props.request,
       volunteer_id: JSON.parse(localStorage.getItem("id"))
     };
-    console.log("payload", payload);
     props.updateRequest(payload, props.request.id);
+    localStorage.removeItem("request");
     nextPage.push("/volunteerDashboard");
   };
 
@@ -35,8 +36,8 @@ const ViewRequestDetails = props => {
       ...props.request,
       picked_up: 1
     };
-    console.log("payload", payload);
     props.updateRequest(payload, props.request.id);
+    localStorage.removeItem("request");
     nextPage.push("/volunteerDashboard");
   };
 
@@ -46,6 +47,7 @@ const ViewRequestDetails = props => {
       delivered: 1
     };
     props.updateRequest(payload, props.request.id);
+    localStorage.removeItem("request");
     nextPage.push("/volunteerDashboard");
   };
 
@@ -55,10 +57,9 @@ const ViewRequestDetails = props => {
       delivered: 1
     };
     props.deleteRequest(payload, props.request.id);
+    localStorage.removeItem("request");
     nextPage.push("/businessDashboard");
   };
-
-  console.log("are they the same?", props.id, props.request.volunteer_id);
 
   return (
     //Reformatted forms with react useForm
@@ -81,9 +82,15 @@ const ViewRequestDetails = props => {
         <Typography variant="body2">
           {props.request.quantity || offline.quantity}
         </Typography>
-        {(!localStorage.getItem("isBusiness") && !props.request.picked_up) ||
-          (offline.picked_up && !props.request.volunteer_id) ||
-          (offline.picked_up && (
+        {console.log("next couple lines are testing")}
+        {console.log(!props.isBusiness)}
+        {console.log(localStorage.getItem("isBusiness"))}
+        {console.log(!offline.picked_up)}
+        {console.log(!offline.volunteer_id)}
+
+        {!props.isBusiness &&
+          (!props.request.picked_up || !offline.picked_up) &&
+          (!props.request.volunteer_id || !offline.volunteer_id) && (
             <Button
               fullWidth
               style={{ marginTop: "50px" }}
@@ -95,10 +102,11 @@ const ViewRequestDetails = props => {
             >
               Accept Pickup Request
             </Button>
-          ))}
-        {(!localStorage.getItem("isBusiness") && !props.request.picked_up) ||
-          (offline.description && props.request.volunteer_id) ||
-          (offline.volunteer_id && (
+          )}
+
+        {!props.isBusiness &&
+          (!props.request.picked_up || !offline.picked_up) &&
+          (props.request.volunteer_id || offline.volunteer_id) && (
             <Button
               fullWidth
               style={{ marginTop: "50px" }}
@@ -110,10 +118,11 @@ const ViewRequestDetails = props => {
             >
               Mark as In-transit
             </Button>
-          ))}
-        {(!localStorage.getItem("isBusiness") && !props.request.delivered) ||
-          (offline.delivered && props.request.picked_up) ||
-          (offline.picked_up && (
+          )}
+
+        {!props.isBusiness &&
+          (!props.request.delivered || offline.delivered) &&
+          (props.request.picked_up || offline.picked_up) && (
             <Button
               fullWidth
               style={{ marginTop: "50px" }}
@@ -125,8 +134,9 @@ const ViewRequestDetails = props => {
             >
               Mark As Completed
             </Button>
-          ))}
-        {localStorage.getItem("isBusiness") && (
+          )}
+
+        {props.isBusiness && (
           <Button
             fullWidth
             style={{ marginTop: "50px" }}
@@ -149,7 +159,7 @@ const mapStateToProps = state => {
   return {
     id: state.authReducer.id,
     request: state.requestReducer.singleRequest,
-    isBusiness: state.authReducer.address
+    isBusiness: JSON.parse(localStorage.getItem("isBusiness"))
   };
 };
 
