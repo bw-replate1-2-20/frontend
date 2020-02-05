@@ -14,6 +14,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
+import { Link as RouterLink } from "react-router-dom";
+
 const Login = props => {
   const [isBusiness, setIsBusiness] = useState(false);
   const { handleSubmit, register } = useForm();
@@ -97,7 +99,7 @@ const Login = props => {
           <br />
           <Grid container justify="center">
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link component={RouterLink} to="/signup" variant="body2">
                 Don't have an Account? Sign Up
               </Link>
             </Grid>
