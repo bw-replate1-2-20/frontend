@@ -11,6 +11,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+
+import { Link as RouterLink } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,6 +39,8 @@ const useStyles = makeStyles(theme => ({
 function NavBar(props) {
   const classes = useStyles();
 
+  const logout = useHistory();
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
@@ -44,8 +51,13 @@ function NavBar(props) {
                 Replate
               </Typography>
               {props.id && (
-                <Button href="/" color="inherit">
-                  logout
+                <Button
+                  onClick={() => {
+                    localStorage.clear();
+                    logout.push("/");
+                  }}
+                >
+                  Logout
                 </Button>
               )}
             </Toolbar>
