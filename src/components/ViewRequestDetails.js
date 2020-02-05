@@ -5,7 +5,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 // actions
-import { updateRequest } from "../actions/requestActions";
+import { updateRequest, deleteRequest } from "../actions/requestActions";
 
 // material ui
 import Grid from "@material-ui/core/Grid";
@@ -44,6 +44,15 @@ const ViewRequestDetails = props => {
     };
     props.updateRequest(payload, props.request.id);
     nextPage.push("/volunteerDashboard");
+  };
+
+  const deleteRequest = () => {
+    const payload = {
+      ...props.request,
+      delivered: 1
+    };
+    props.deleteRequest(payload, props.request.id);
+    nextPage.push("/businessDashboard");
   };
 
   console.log("are they the same?", props.id, props.request.volunteer_id);
@@ -100,6 +109,17 @@ const ViewRequestDetails = props => {
               Completed Pickup Request
             </Button>
           )}
+        {props.isBusiness && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              deleteRequest();
+            }}
+          >
+            Delete Request
+          </Button>
+        )}
       </Grid>
     </Container>
   );
@@ -114,4 +134,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { updateRequest })(ViewRequestDetails);
+export default connect(mapStateToProps, { updateRequest, deleteRequest })(
+  ViewRequestDetails
+);
