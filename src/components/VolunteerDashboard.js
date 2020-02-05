@@ -23,14 +23,9 @@ const VolunteerDashboard = props => {
 
   useEffect(() => {
     props.getRequests(false);
-  }, []);
+  }, [showAll]);
 
   console.log(props.requests);
-
-  const filteredRequests = props.requests.filter(
-    request => request.volunteer_id == props.id
-  );
-
   return (
     <Container maxWidth="xs" justify="center" direction="column">
       <Grid>
@@ -62,16 +57,16 @@ const VolunteerDashboard = props => {
             key={props.id}
             requests={props.requests}
             id={props.id}
-            getAll={showAll}
+            getAll={true}
             isBusiness={false}
           />
         )}
         {!showAll && (
           <RequestList
             key={props.id}
-            requests={filteredRequests}
+            requests={props.requests}
             id={props.id}
-            getAll={showAll}
+            getAll={false}
             isBusiness={false}
           />
         )}

@@ -15,17 +15,18 @@ import RequestCard from "./RequestCard";
 
 const RequestList = props => {
   const availableRequests = props.requests.map(request => {
-    if (!request.volunteer_id) {
-      return <RequestCard request={request} key={request.id} />;
+    if (!request.delivered) {
+      if (!request.volunteer_id && props.getAll) {
+        return <RequestCard request={request} key={request.id} />;
+      } else if (request.volunteer_id && !props.getAll) {
+        return <RequestCard request={request} key={request.id} />;
+      }
     }
   });
 
-  console.log(props.getAll);
-
   return (
     <div>
-      {!props.isBusiness && props.requests && props.getAll && availableRequests}
-      {!props.isBusiness && !props.getAll && props.requests}
+      {!props.isBusiness && props.requests && availableRequests}
       {props.isBusiness &&
         props.requests &&
         props.requests.map(request => {
