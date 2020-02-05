@@ -40,6 +40,7 @@ export const getSingleRequest = requestID => {
       .get(`api/requests/${requestID}`)
       .then(res => {
         console.log(res);
+        localStorage.setItem("request", JSON.stringify(res.data));
         dispatch({ type: "GET_SINGLE_REQUEST", payload: res.data });
       })
       .catch(err => {

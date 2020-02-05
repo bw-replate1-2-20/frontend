@@ -1,7 +1,7 @@
 // RENDERING THROUGH PROPS, REQUEST DETAIL
 // CONNECT TO STORE
 // ABILITY TO UPDATE / DELETE REQUEST ID
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 // actions
@@ -16,6 +16,9 @@ import { useHistory } from "react-router-dom";
 
 const ViewRequestDetails = props => {
   const nextPage = useHistory();
+
+  let offline = JSON.parse(localStorage.getItem("request"));
+
   console.log(props.request);
   const acceptRequest = () => {
     const payload = {
@@ -67,16 +70,23 @@ const ViewRequestDetails = props => {
     // ready_by (date and time)
     <Container maxWidth="xs">
       <Grid justify="center" direction="column">
-        <Typography variant='h6' align='center' style={{marginTop: '27px'}}>{props.request.title}</Typography>
-        <Typography variant='subtitle1'>Food Description:</Typography>
-        <Typography variant='body2'>{props.request.description}</Typography>
-        <Typography variant='subtitle1'>Item Count:</Typography>
-        <Typography variant='body2'>{props.request.quantity}</Typography>
-        {!props.isBusiness &&
-          !props.request.picked_up &&
-          !props.request.volunteer_id && (
-            <Button fullWidth
-            style={{marginTop: '50px'}}
+        <Typography variant="h6" align="center" style={{ marginTop: "27px" }}>
+          {offline.title || props.request.title}
+        </Typography>
+        <Typography variant="subtitle1">Food Description:</Typography>
+        <Typography variant="body2">
+          {props.request.description || offline.description}
+        </Typography>
+        <Typography variant="subtitle1">Item Count:</Typography>
+        <Typography variant="body2">
+          {props.request.quantity || offline.quantity}
+        </Typography>
+        {(!localStorage.getItem("isBusiness") && !props.request.picked_up) ||
+          (offline.picked_up && !props.request.volunteer_id) ||
+          (offline.picked_up && (
+            <Button
+              fullWidth
+              style={{ marginTop: "50px" }}
               variant="contained"
               color="primary"
               onClick={() => {
@@ -85,12 +95,13 @@ const ViewRequestDetails = props => {
             >
               Accept Pickup Request
             </Button>
-          )}
-        {!props.isBusiness &&
-          !props.request.picked_up &&
-          props.request.volunteer_id && (
-            <Button fullWidth
-            style={{marginTop: '50px'}}
+          ))}
+        {(!localStorage.getItem("isBusiness") && !props.request.picked_up) ||
+          (offline.description && props.request.volunteer_id) ||
+          (offline.volunteer_id && (
+            <Button
+              fullWidth
+              style={{ marginTop: "50px" }}
               variant="contained"
               color="primary"
               onClick={() => {
@@ -99,12 +110,13 @@ const ViewRequestDetails = props => {
             >
               Mark as In-transit
             </Button>
-          )}
-        {!props.isBusiness &&
-          !props.request.delivered &&
-          props.request.picked_up && (
-            <Button fullWidth
-            style={{marginTop: '50px'}}
+          ))}
+        {(!localStorage.getItem("isBusiness") && !props.request.delivered) ||
+          (offline.delivered && props.request.picked_up) ||
+          (offline.picked_up && (
+            <Button
+              fullWidth
+              style={{ marginTop: "50px" }}
               variant="contained"
               color="primary"
               onClick={() => {
@@ -113,10 +125,11 @@ const ViewRequestDetails = props => {
             >
               Mark As Completed
             </Button>
-          )}
-        {props.isBusiness && (
-          <Button fullWidth
-          style={{marginTop: '50px'}}
+          ))}
+        {localStorage.getItem("isBusiness") && (
+          <Button
+            fullWidth
+            style={{ marginTop: "50px" }}
             variant="contained"
             color="primary"
             onClick={() => {
