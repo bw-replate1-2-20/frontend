@@ -25,8 +25,10 @@ const VolunteerDashboard = props => {
     props.getRequests(false);
   }, []);
 
+  console.log(props.requests);
+
   const filteredRequests = props.requests.filter(
-    request => request.volunteer_id === props.id
+    request => request.volunteer_id == props.id
   );
 
   return (
@@ -60,6 +62,7 @@ const VolunteerDashboard = props => {
             key={props.id}
             requests={props.requests}
             id={props.id}
+            getAll={showAll}
             isBusiness={false}
           />
         )}
@@ -68,6 +71,7 @@ const VolunteerDashboard = props => {
             key={props.id}
             requests={filteredRequests}
             id={props.id}
+            getAll={showAll}
             isBusiness={false}
           />
         )}

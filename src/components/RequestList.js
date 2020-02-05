@@ -14,21 +14,24 @@ import RequestCard from "./RequestCard";
 /* import CreateRequestForm from "./CreateRequestForm" */
 
 const RequestList = props => {
-  const businessRequests = props.requests.map(request => {
+  const availableRequests = props.requests.map(request => {
     if (!request.volunteer_id) {
       return <RequestCard request={request} key={request.id} />;
     }
   });
 
+  console.log(props.getAll);
+
   return (
     <div>
-      {!props.isBusiness && props.requests && businessRequests}
+      {!props.isBusiness && props.requests && props.getAll && availableRequests}
+      {!props.isBusiness && !props.getAll && props.requests}
       {props.isBusiness &&
         props.requests &&
         props.requests.map(request => {
           return <RequestCard request={request} key={request.id} />;
         })}
-      {props.isBusiness && businessRequests.length === 0 && (
+      {props.isBusiness && availableRequests.length === 0 && (
         <p>No requests yet. Create requests to have them appear here.</p>
       )}
     </div>

@@ -41,6 +41,8 @@ const ViewRequestDetails = props => {
     props.updateRequest();
   };
 
+  console.log(props.isBusiness);
+
   return (
     //Reformatted forms with react useForm
 
@@ -54,7 +56,7 @@ const ViewRequestDetails = props => {
         <h2>{props.request.title}</h2>
         <p>quantity: {props.request.quantity}</p>
         <p>description: {props.request.description}</p>
-        {props.request.picked_up === null && (
+        {!props.isBusiness && props.request.picked_up === null && (
           <Button
             variant="contained"
             color="primary"
@@ -65,18 +67,20 @@ const ViewRequestDetails = props => {
             Accept Pickup Request
           </Button>
         )}
-        {props.request.picked_up && props.request.delivered === null && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              pickedUpRequest();
-            }}
-          >
-            Request Had Been Picked Up
-          </Button>
-        )}
-        {props.request.delivered && (
+        {!props.isBusiness &&
+          props.request.picked_up &&
+          props.request.delivered === null && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                pickedUpRequest();
+              }}
+            >
+              Request Had Been Picked Up
+            </Button>
+          )}
+        {!props.isBusiness && props.request.delivered && (
           <Button
             variant="contained"
             color="primary"
@@ -93,8 +97,10 @@ const ViewRequestDetails = props => {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    request: state.requestReducer.singleRequest
+    request: state.requestReducer.singleRequest,
+    isBusiness: state.authReducer.address
   };
 };
 
