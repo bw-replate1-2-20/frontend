@@ -125,7 +125,9 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '21px',
+      fontWeight: '600'
     },
     subtitle2: {
       fontFamily: [
