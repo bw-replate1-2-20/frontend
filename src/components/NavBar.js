@@ -1,5 +1,7 @@
 import React from "react";
 
+import { connect } from "react-redux";
+
 // material ui
 import { Container } from "@material-ui/core";
 
@@ -29,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavBar() {
+function NavBar(props) {
   const classes = useStyles();
 
   return (
@@ -41,9 +43,11 @@ export default function NavBar() {
               <Typography variant="h4" className={classes.title}>
                 Replate
               </Typography>
-              <Button href="/login" color="inherit">
-                login
-              </Button>
+              {props.id && (
+                <Button href="/" color="inherit">
+                  logout
+                </Button>
+              )}
             </Toolbar>
           </Grid>
         </Container>
@@ -51,3 +55,12 @@ export default function NavBar() {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    id: state.authReducer.id
+  };
+};
+
+export default connect(mapStateToProps, {})(NavBar);
