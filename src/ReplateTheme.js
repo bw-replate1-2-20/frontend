@@ -1,5 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
+const defaultTheme = createMuiTheme();
+
 const ReplateTheme = createMuiTheme({
   palette: {
     common: {
@@ -36,40 +38,54 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '36px',
+      fontWeight: 'normal',
+      [defaultTheme.breakpoints.up('lg')]: {
+        fontSize: '48px'
+      }
     },
     h2: {
       fontFamily: [
-        "Baloo Bhai",
         "-apple-system",
         "system-ui",
         "BlinkMacSystemFormat",
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '30px',
+      fontWeight: '600',
+      [defaultTheme.breakpoints.up('lg')]: {
+        fontSize: '30px'
+      }
     },
     h3: {
       fontFamily: [
-        "Baloo Bhai",
         "-apple-system",
         "system-ui",
         "BlinkMacSystemFormat",
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '24px',
+      fontWeight: '600'
     },
     h4: {
       fontFamily: [
-        "Baloo Bhai",
         "-apple-system",
         "system-ui",
         "BlinkMacSystemFormat",
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '32px',
+      fontWeight: '500',
+      [defaultTheme.breakpoints.up('lg')]: {
+        fontSize: '60px'
+      }
     },
     h5: {
       fontFamily: [
@@ -79,7 +95,12 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '32px',
+      fontWeight: '500',
+      [defaultTheme.breakpoints.up('lg')]: {
+        fontSize: '48px'
+      }
     },
     h6: {
       fontFamily: [
@@ -89,7 +110,12 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '32px',
+      fontWeight: '500',
+      [defaultTheme.breakpoints.up('lg')]: {
+        fontSize: '60px'
+      }
     },
     subtitle1: {
       fontFamily: [
@@ -99,7 +125,9 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '21px',
+      fontWeight: '600'
     },
     subtitle2: {
       fontFamily: [
@@ -119,7 +147,12 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '16px',
+      fontWeight: '500',
+      [defaultTheme.breakpoints.up('lg')]: {
+        fontSize: '24px'
+      }
     },
     body2: {
       fontFamily: [
@@ -129,7 +162,9 @@ const ReplateTheme = createMuiTheme({
         "Segoe UI",
         "Roboto",
         "Ubuntu"
-      ]
+      ],
+      fontSize: '18px',
+      fontWeight: '500'
     },
     button: {
       fontFamily: [
@@ -140,6 +175,8 @@ const ReplateTheme = createMuiTheme({
         "Roboto",
         "Ubuntu"
       ],
+      fontSize: '18px',
+      fontWeight: '600',
       textTransform: "none"
     },
     caption: {
