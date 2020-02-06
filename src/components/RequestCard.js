@@ -11,24 +11,25 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
+import Icon from "@material-ui/core/Icon";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "20px"
+    marginBottom: "20px",
+    justifyContent: "space-between"
   },
   details: {
     display: "flex",
     flexDirection: "column"
   },
   content: {
-    flex: "1 0 auto"
+    flex: "1"
   },
   cover: {
     borderTopLeftRadius: "0px",
-    borderBottomLeftRadius: "0px",
-    float: "right"
+    borderBottomLeftRadius: "0px"
   },
   controls: {
     display: "flex",
@@ -56,14 +57,23 @@ function RequestCard(props) {
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h6" variant="h6">
+          <Typography component="h3" variant="h3">
             {props.request.title}
           </Typography>
-          <Typography variant="subtitle3" color="textSecondary">
+
+          <Typography variant="subtitle2" color="textSecondary">
             {props.request.description}
           </Typography>
-          <Typography variant="subtitle3" color="textSecondary">
-            {props.request.ready_by}
+          <br />
+          <Typography variant="subtitle2" color="textSecondary">
+            <Chip
+              size="small"
+              color="primary"
+              label={`${Date(props.request.ready_by)
+                .split(" ")
+                .slice(0, 5)
+                .join(" ")}`}
+            />
           </Typography>
         </CardContent>
       </div>
@@ -76,7 +86,7 @@ function RequestCard(props) {
           nextPage.push("/requestDetails");
         }}
       >
-        >
+        <Icon>assignment</Icon>
       </Button>
     </Card>
   );
