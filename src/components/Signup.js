@@ -82,6 +82,12 @@ const Signup = props => {
 
   return (
     <Container maxWidth="xs">
+
+
+      <Grid container='div' direction='row' justify='flex-start' style={{ marginTop: '15px' }}>
+
+        <Button href='https://distracted-ramanujan-c35158.netlify.com/'> Back</Button>
+      </Grid>
       <Grid
         container
         justify="center"
@@ -95,30 +101,30 @@ const Signup = props => {
           Sign Up
         </Typography>
 
-      
+
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
 
           <ButtonGroup fullWidth variant="contained">
-          <Button
-            color={isBusiness ? "default" : "primary"}
-            onClick={() => {
-              setIsBusiness(false);
-          
-            }}
-          >
-            Volunteer
+            <Button
+              color={isBusiness ? "default" : "primary"}
+              onClick={() => {
+                setIsBusiness(false);
+
+              }}
+            >
+              Volunteer
           </Button>
-          <Button
-            color={isBusiness ? "primary" : "default"}
-            onClick={() => {
-              setIsBusiness(true);
-         
-            }}
-          >
-            Business
+            <Button
+              color={isBusiness ? "primary" : "default"}
+              onClick={() => {
+                setIsBusiness(true);
+
+              }}
+            >
+              Business
           </Button>
-        </ButtonGroup>
+          </ButtonGroup>
 
 
           <TextField
