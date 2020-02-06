@@ -38,7 +38,7 @@ function NavBar(props) {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const logout = useHistory();
+  const nextPage = useHistory();
 
   return (
     <>
@@ -87,12 +87,25 @@ function NavBar(props) {
                     style={{ color: "#fff", marginRight: "15px" }}
                     onClick={() => {
                       localStorage.clear();
-                      logout.push("/");
+                      nextPage.push("/");
                     }}
                   >
                     Logout
                   </Button>
                 )}
+                {JSON.parse(localStorage.getItem("isBusiness")) &&
+                  localStorage.getItem("id") && (
+                    <Button
+                      style={{ marginRight: "15px" }}
+                      color="primary"
+                      variant="contained"
+                      onClick={() => {
+                        nextPage.push("/analytics");
+                      }}
+                    >
+                      Analytics
+                    </Button>
+                  )}
                 {!JSON.parse(localStorage.getItem("isBusiness")) &&
                   localStorage.getItem("id") && (
                     <Button
