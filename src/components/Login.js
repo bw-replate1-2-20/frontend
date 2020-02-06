@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { login } from "../actions/authActions";
 
@@ -25,6 +25,25 @@ const Login = props => {
   //Form validation and scheme
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+
+  const [hasFetched, setHasFetched] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+
+  //
+  useEffect(() => {
+    if (props.isFetching) {
+      setHasFetched(true)
+    }
+  }, [props.isFetching])
+  useEffect(() => {
+    if (hasFetched) {
+      setLoginError(true)
+    }
+    else {
+      setLoginError(false)
+    }
+  }, [hasFetched])
+
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -108,11 +127,12 @@ const Login = props => {
               
               triggerValidation("email");
               setEmailTouched(true);
+              setHasFetched(false)
              
             }}
 
-            error={Boolean(errors.email)}
-            helperText={(errors.email && errors.email.message) || (emailTouched && "Looks good.")}
+            error={ (!props.isFetching && loginError) || Boolean(errors.email)}
+            helperText={(!props.isFetching && loginError && "Login failed." ) || (errors.email && errors.email.message) || (emailTouched && "Looks good.")}
           />
           <TextField
             variant="outlined"
@@ -137,21 +157,22 @@ const Login = props => {
               
               triggerValidation("password");
               setPasswordTouched(true);
+              setHasFetched(false)
              
             }}
 
-            error={Boolean(errors.password)}
-            helperText={(errors.password && errors.password.message) || (passwordTouched && "Nice.")}
+            error={(!props.isFetching && loginError) || Boolean(errors.password)}
+            helperText={(!props.isFetching && loginError && "Email or password is incorrect." ) || (errors.password && errors.password.message) || (passwordTouched && "Nice.")}
           />
           <Button
-            disabled={!emailTouched || !passwordTouched || errors.email || errors.password}
+            disabled={props.isFetching || hasFetched || !emailTouched || !passwordTouched || errors.email || errors.password}
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             style={{ margin: "15px 0" }}
           >
-            Log In
+            {props.isFetching && "Logging In" || "Log In"}
           </Button>
           <br />
           <Grid container justify="center">
@@ -167,4 +188,11 @@ const Login = props => {
   );
 };
 
-export default connect(null, { login })(Login);
+
+const mapStateToProps = state => {
+  return {
+    isFetching : state.authReducer.isFetching 
+  };
+};
+
+export default connect(mapStateToProps, { login })(Login);
