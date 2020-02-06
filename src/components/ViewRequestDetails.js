@@ -82,11 +82,6 @@ const ViewRequestDetails = props => {
         <Typography variant="body2">
           {props.request.quantity || offline.quantity}
         </Typography>
-        {console.log("next couple lines are testing")}
-        {console.log(!props.isBusiness)}
-        {console.log(localStorage.getItem("isBusiness"))}
-        {console.log(!offline.picked_up)}
-        {console.log(!offline.volunteer_id)}
 
         {!props.isBusiness &&
           (!props.request.picked_up || !offline.picked_up) &&
