@@ -26,6 +26,8 @@ const BusinessDashboard = props => {
     props.getRequests(true, localStorage.getItem("id"));
   }, []);
 
+  const filterCompleted = props.requests.filter(request => !request.delivered);
+
   return (
     <Container maxWidth="xs">
       <Grid justify="center" direction="column">
@@ -41,7 +43,7 @@ const BusinessDashboard = props => {
         </Button>
         <RequestList
           key={props.id}
-          requests={props.requests}
+          requests={filterCompleted}
           id={props.id}
           isBusiness={true}
         />
