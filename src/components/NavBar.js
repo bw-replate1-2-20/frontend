@@ -2,8 +2,13 @@ import React, { useState } from "react";
 
 import { connect } from "react-redux";
 
+import { Link as RouteLink } from "react-router-dom";
+
+
 // material ui
 import { Container, Drawer } from "@material-ui/core";
+
+import Hidden from "@material-ui/core/Hidden";
 
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,118 +16,123 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/icons/Menu";
+import CloseIcon from '@material-ui/icons/Close';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
-  },
-  link: {
-    backgroundColor: "#fff",
-    color: "gray",
-    marginLeft: "20px",
-    padding: "3px 20px",
-    textDecoration: "none"
-  }
-}));
 
 function NavBar(props) {
-  const classes = useStyles();
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const nextPage = useHistory();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const history = useHistory();
 
   return (
     <>
       <Drawer open={drawerOpen} PaperProps={{ style: { width: "100%" } }}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            setDrawerOpen(!drawerOpen);
-          }}
-        >
-          Close
-        </Button>
-        <Button
-          to="/volunteerDashboardAll"
-          color="secondary"
-          component={Link}
-          onClick={() => {
-            setDrawerOpen(!drawerOpen);
-          }}
-        >
-          All requests
-        </Button>
-        <Button
-          to="/volunteerDashboardPersonal"
-          color="secondary"
-          component={Link}
-          onClick={() => {
-            setDrawerOpen(!drawerOpen);
-          }}
-        >
-          My Requests
-        </Button>
+
+        <Grid container direction='row'>
+        <IconButton onClick={() => {
+              setDrawerOpen(!drawerOpen);
+            }}>
+          <CloseIcon fontSize='large'/>
+        </IconButton>
+        </Grid>
+        {/* Volunteer navigation in drawer */}
+        {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+
+
+        <List component="nav">
+            <ListItem button component={RouteLink} to="/volunteerDashboardAll" onClick={() => {
+              setDrawerOpen(false);
+            }}>
+              All Available Pickups
+          </ListItem>
+            <ListItem button component={RouteLink} to="/volunteerDashboardPersonal" onClick={() => {
+              setDrawerOpen(false);
+            }}>
+             Accepted Pickups
+          </ListItem>
+          </List>
+
+        </>}
+
+        {/* Business navigation links in drawer */}
+        {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+
+          <List component="nav">
+            <ListItem button component={RouteLink} to="/businessDashboard" onClick={() => {
+              setDrawerOpen(false);
+            }}>
+              Open Pickup Requests
+          </ListItem>
+            <ListItem button component={RouteLink} to="/analytics" activeClassName="Mui-Selected" onClick={() => {
+              setDrawerOpen(false);
+            }}>
+              Pickup Request Analytics
+          </ListItem>
+          </List>
+        </>}
       </Drawer>
 
-      <div className={classes.root}>
-        <AppBar position="static" color="secondary">
-          <Container maxWidth="md">
-            <Grid>
-              <Toolbar>
-                <Typography variant="h4" className={classes.title}>
-                  Replate
+
+
+
+      <AppBar position="static" color="secondary">
+
+        <Toolbar>
+          <Grid container direction="row" alignItems='center' justify='space-between'>
+
+            <Hidden mdUp>
+              <IconButton aria-label="navigation" onClick={() => { setDrawerOpen(!drawerOpen) }} style={{ color: "#fff" }}>
+                <Menu fontSize='large' />
+              </IconButton>
+            </Hidden>
+
+            <Typography variant="h1" >
+              Replate
                 </Typography>
-                {localStorage.getItem("id") && (
-                  <Button
-                    style={{ color: "#fff", marginRight: "15px" }}
-                    onClick={() => {
-                      localStorage.clear();
-                      nextPage.push("/");
-                    }}
-                  >
-                    Logout
+
+
+
+
+            <span>
+            <Hidden smDown>
+              
+                <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
+                  My Requests
+                </Button>
+                <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
+                  Analytics
+              </Button>
+             
+            </Hidden>
+
+
+            {localStorage.getItem("id") && (
+              <Button
+                style={{ color: "#fff" }}
+                onClick={() => {
+                  localStorage.clear();
+                  history.push("/");
+                }}
+              >
+                Logout
                   </Button>
-                )}
-                {JSON.parse(localStorage.getItem("isBusiness")) &&
-                  localStorage.getItem("id") && (
-                    <Button
-                      style={{ marginRight: "15px" }}
-                      color="primary"
-                      variant="contained"
-                      onClick={() => {
-                        nextPage.push("/analytics");
-                      }}
-                    >
-                      Analytics
-                    </Button>
-                  )}
-                {!JSON.parse(localStorage.getItem("isBusiness")) &&
-                  localStorage.getItem("id") && (
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      onClick={() => {
-                        setDrawerOpen(!drawerOpen);
-                      }}
-                    >
-                      +
-                    </Button>
-                  )}
-              </Toolbar>
-            </Grid>
-          </Container>
-        </AppBar>
-      </div>
+            )}
+            </span>
+
+          </Grid>
+
+        </Toolbar>
+
+      </AppBar>
     </>
   );
 }
