@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useForm } from "react-hook-form";
-
 import { login } from "../actions/authActions";
+
+
+//Form validation and scheme
+import { useForm } from "react-hook-form";
+import * as yup from 'yup';
 
 // material ui
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -18,7 +21,24 @@ import { Link as RouterLink } from "react-router-dom";
 
 const Login = props => {
   const [isBusiness, setIsBusiness] = useState(false);
-  const { handleSubmit, register } = useForm();
+
+  //Form validation and scheme
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .required(`Please enter your email.`)
+      .email(`Please enter a valid email.`),
+    password: yup
+      .string()
+      .required(`Please enter your password.`)
+      .min(4, "Password is at least four characters.")
+  });
+  const { handleSubmit, register, errors, triggerValidation} = useForm({
+    validationSchema: schema
+  });
+
 
   //Login action goes here
   const onSubmit = values => {
@@ -28,12 +48,16 @@ const Login = props => {
   return (
     //Reformatted forms with react useForm
     <Container maxWidth="xs">
+      <Grid container='div' direction='row' justify='flex-start' style={{marginTop: '15px'}}>
+      
+        <Button href='https://distracted-ramanujan-c35158.netlify.com/'> Back</Button>
+      </Grid>
       <Grid justify="center" direction="column">
         <Typography
-          variant="h3"
+          variant="h1"
           style={{
             marginBottom: "15px",
-            marginTop: "115px",
+            marginTop: "50px",
             textAlign: "center"
           }}
         >
@@ -73,6 +97,22 @@ const Login = props => {
             name="email"
             autoComplete="username"
             inputRef={register}
+
+            onClick={async () => {
+              
+              triggerValidation("email");
+              setEmailTouched(true);
+            
+            }}
+            onChange={async () => {
+              
+              triggerValidation("email");
+              setEmailTouched(true);
+             
+            }}
+
+            error={Boolean(errors.email)}
+            helperText={(errors.email && errors.email.message) || (emailTouched && "Looks good.")}
           />
           <TextField
             variant="outlined"
@@ -86,8 +126,25 @@ const Login = props => {
             id="password"
             autoComplete="current-password"
             inputRef={register}
+
+            onClick={async () => {
+              
+              triggerValidation("password");
+              setPasswordTouched(true);
+            
+            }}
+            onChange={async () => {
+              
+              triggerValidation("password");
+              setPasswordTouched(true);
+             
+            }}
+
+            error={Boolean(errors.password)}
+            helperText={(errors.password && errors.password.message) || (passwordTouched && "Nice.")}
           />
           <Button
+            disabled={!emailTouched || !passwordTouched || errors.email || errors.password}
             type="submit"
             fullWidth
             variant="contained"
