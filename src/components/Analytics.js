@@ -4,6 +4,7 @@ import { PieChart, Pie, Sector, Cell, Tooltip } from "recharts";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
 
 const COLORS = ["#EC6D12", "#014A73"];
 
@@ -61,29 +62,31 @@ export default function Analytics() {
   return (
     <Container maxWidth="xs">
       <h2 style={{ textAlign: "center" }}>Completed vs. Requested Pickups</h2>
-      {doneLoading && (
-        <PieChart
-          width={500}
-          height={400}
-          onMouseEnter={PureComponent.onPieEnter}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <Pie
-            data={data}
-            cx={185}
-            cy={150}
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={130}
-            fill="#8884d8"
+      <Paper elevation={3}>
+        {doneLoading && (
+          <PieChart
+            width={500}
+            height={400}
+            onMouseEnter={PureComponent.onPieEnter}
+            style={{ width: "100%", height: "100%" }}
           >
-            {data.map((entry, index) => (
-              <Cell fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      )}
+            <Pie
+              data={data}
+              cx={185}
+              cy={185}
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius={130}
+              fill="#8884d8"
+            >
+              {data.map((entry, index) => (
+                <Cell fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        )}
+      </Paper>
     </Container>
   );
 }
