@@ -40,10 +40,7 @@ const ReplateTheme = createMuiTheme({
         "Ubuntu"
       ],
       fontSize: '36px',
-      fontWeight: 'normal',
-      [defaultTheme.breakpoints.up('lg')]: {
-        fontSize: '48px'
-      }
+      fontWeight: 'normal'
     },
     h2: {
       fontFamily: [
