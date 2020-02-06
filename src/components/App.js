@@ -11,12 +11,14 @@ import VolunteerDashboardPersonal from "./VolunteerDashboardPersonal";
 
 import CreateRequestForm from "./CreateRequestForm";
 import ViewRequestDetails from "./ViewRequestDetails";
+import Analytics from "./Analytics";
 
 const App = () => {
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <PrivateRoute path="/analytics" component={Analytics} />
         <PrivateRoute path="/requestDetails" component={ViewRequestDetails} />
         <PrivateRoute path="/createRequest" component={CreateRequestForm} />
         <PrivateRoute path="/businessDashboard" component={BusinessDashboard} />

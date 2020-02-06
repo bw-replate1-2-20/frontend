@@ -28,7 +28,7 @@ const ViewRequestDetails = props => {
     };
     props.updateRequest(payload, props.request.id);
     localStorage.removeItem("request");
-    nextPage.push("/volunteerDashboard");
+    nextPage.push("/volunteerDashboardAll");
   };
 
   const pickedUpRequest = () => {
@@ -38,7 +38,7 @@ const ViewRequestDetails = props => {
     };
     props.updateRequest(payload, props.request.id);
     localStorage.removeItem("request");
-    nextPage.push("/volunteerDashboard");
+    nextPage.push("/volunteerDashboardAll");
   };
 
   const completeRequest = () => {
@@ -48,7 +48,7 @@ const ViewRequestDetails = props => {
     };
     props.updateRequest(payload, props.request.id);
     localStorage.removeItem("request");
-    nextPage.push("/volunteerDashboard");
+    nextPage.push("/volunteerDashboardAll");
   };
 
   const deleteRequest = () => {
