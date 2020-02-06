@@ -13,6 +13,8 @@ import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
+import { Link } from "react-router-dom";
+
 import {
   getRequests,
   createRequest,
@@ -31,7 +33,8 @@ const BusinessDashboard = props => {
         <Button
           variant="contained"
           color="primary"
-          href="/createRequest"
+          component={Link}
+          to="/createRequest"
           style={{ marginBottom: "20px" }}
         >
           Create Request
