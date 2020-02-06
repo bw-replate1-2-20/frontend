@@ -135,10 +135,12 @@ const Signup = props => {
             onClick={async () => {
               triggerValidation("name");
               setNameTouched(true);
+              setHasFetched(false)
             }}
             onChange={async () => {
               triggerValidation("name");
               setNameTouched(true);
+              setHasFetched(false)
             }}
           />
           <TextField
@@ -155,10 +157,12 @@ const Signup = props => {
             onClick={async () => {
               triggerValidation("email");
               setEmailTouched(true);
+              setHasFetched(false)
             }}
             onChange={async () => {
               triggerValidation("email");
               setEmailTouched(true);
+              setHasFetched(false)
             }}
           />
           <TextField
@@ -180,6 +184,7 @@ const Signup = props => {
             onChange={async () => {
               triggerValidation("password");
               setPasswordTouched(true);
+              setHasFetched(false)
 
             }}
           />
@@ -198,10 +203,12 @@ const Signup = props => {
               onClick={async () => {
                 triggerValidation("address");
                 setAddressTouched(true);
+                setHasFetched(false)
               }}
               onChange={async () => {
                 triggerValidation("address");
                 setAddressTouched(true);
+                setHasFetched(false)
 
               }}
             />
@@ -219,10 +226,12 @@ const Signup = props => {
             onClick={async () => {
               triggerValidation("phone");
               setPhoneTouched(true);
+              setHasFetched(false)
             }}
             onChange={async () => {
               triggerValidation("phone");
               setPhoneTouched(true);
+              setHasFetched(false)
             }}
           />
           {isBusiness && (
@@ -245,6 +254,7 @@ const Signup = props => {
               onChange={async () => {
                 triggerValidation("description");
                 setDescriptionTouched(true);
+                setHasFetched(false)
               }}
             />
           )}
