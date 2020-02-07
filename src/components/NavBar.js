@@ -87,68 +87,48 @@ function NavBar(props) {
       <AppBar position="static" color="secondary">
 
         <Toolbar>
-        <Hidden smUp> <Container maxWidth='xs'><Typography variant="h1" >Replate</Typography></Container> </Hidden> 
-          <Hidden xsDown>
+
             <Container maxWidth='lg'>
-          <Grid container direction="row" alignItems='center' justify='space-between'>
-          {localStorage.getItem("id") && 
-            <Hidden smDown>
-              <IconButton aria-label="navigation" onClick={() => { setDrawerOpen(!drawerOpen) }} style={{ color: "#fff" }}>
-                <Menu fontSize='large' />
-              </IconButton>
-          </Hidden> }
+              <Grid container direction="row" alignItems='center' justify='space-between'>
 
-            <Typography variant="h1" >Replate</Typography>
+                <Hidden mdUp>
+                  {localStorage.getItem("id") &&
+                    <IconButton aria-label="navigation" onClick={() => { setDrawerOpen(!drawerOpen) }} style={{ color: "#fff" }}>
+                      <Menu fontSize='large' />
+                    </IconButton>
+                  }</Hidden>
 
+                  <Typography variant="h1" >Replate</Typography>
 
+                  {localStorage.getItem("id") &&
+                    <span>
+                      <Hidden smDown>
+                        {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
+                            Available Pickups</Button>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
+                            My Pickups</Button></>}
+                        {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
+                            My Requests</Button>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
+                            Analytics</Button>
+                        </>}
+                      </Hidden>
 
+                      <Button
+                        style={{ color: "#fff" }}
+                        onClick={() => {
+                          localStorage.clear();
+                          history.push("/");
+                        }}>Logout
+                      </Button>
+                      </span>}
+                
 
-            <span>
-
-
-              {localStorage.getItem("id") && (
-<>
-
-                <Hidden smDown>
-
-
-
-                  {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll">
-                      Available Pickups
-    </Button>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
-                      Accepted Pickups
-  </Button></>}
-
-
-                  {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard">
-                      My Requests
-    </Button>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
-                      Analytics
-  </Button>
-                  </>}
-
-                </Hidden>
-
-
-                <Button
-                  style={{ color: "#fff" }}
-                  onClick={() => {
-                    localStorage.clear();
-                    history.push("/");
-                  }}
-                >
-                  Logout
-                  </Button> </>
-            )}
-            </span>
-
-          </Grid>
-          </Container>
-          </Hidden>
+              </Grid>
+            </Container>
+      
         </Toolbar>
 
       </AppBar>
