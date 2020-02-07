@@ -67,16 +67,13 @@ const Login = props => {
   return (
     //Reformatted forms with react useForm
     <Container maxWidth="xs">
-      <Grid container='div' direction='row' justify='flex-start' style={{marginTop: '15px'}}>
-      
-        <Button href='https://distracted-ramanujan-c35158.netlify.com/'> Back</Button>
-      </Grid>
-      <Grid justify="center" direction="column">
+  
+      <Grid justify="center" direction="column" >
         <Typography
           variant="h1"
           style={{
             marginBottom: "15px",
-            marginTop: "50px",
+            marginTop: "115px",
             textAlign: "center"
           }}
         >
