@@ -45,9 +45,8 @@ function NavBar(props) {
         </IconButton>
         </Grid>
         {/* Volunteer navigation in drawer */}
+
         {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-
-
         <List component="nav">
             <ListItem button component={RouteLink} to="/volunteerDashboardAll" onClick={() => {
               setDrawerOpen(false);
@@ -105,12 +104,23 @@ function NavBar(props) {
             <span>
             <Hidden smDown>
               
+            {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+            <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
+                Available Pickups
+                </Button>
+                <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
+                  My Pickups
+              </Button></>}
+
+
+            {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
                 <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
                   My Requests
                 </Button>
                 <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
                   Analytics
               </Button>
+              </>}
              
             </Hidden>
 

@@ -13,6 +13,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
 import Icon from "@material-ui/core/Icon";
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,7 +87,7 @@ function RequestCard(props) {
           nextPage.push("/requestDetails");
         }}
       >
-        <Icon>assignment</Icon>
+        <AssignmentIcon/>
       </Button>
     </Card>
   );
