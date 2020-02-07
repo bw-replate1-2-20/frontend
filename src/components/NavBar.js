@@ -44,6 +44,7 @@ function NavBar(props) {
             <CloseIcon fontSize='large' />
           </IconButton>
         </Grid>
+
         {/* Volunteer navigation in drawer */}
 
         {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
@@ -86,17 +87,18 @@ function NavBar(props) {
       <AppBar position="static" color="secondary">
 
         <Toolbar>
+        <Hidden smUp> <Container maxWidth='xs'><Typography variant="h1" >Replate</Typography></Container> </Hidden> 
+          <Hidden xsDown>
+            <Container maxWidth='lg'>
           <Grid container direction="row" alignItems='center' justify='space-between'>
-
-            <Hidden mdUp>
+          {localStorage.getItem("id") && 
+            <Hidden smDown>
               <IconButton aria-label="navigation" onClick={() => { setDrawerOpen(!drawerOpen) }} style={{ color: "#fff" }}>
                 <Menu fontSize='large' />
               </IconButton>
-            </Hidden>
+          </Hidden> }
 
-            <Typography variant="h1" >
-              Replate
-                </Typography>
+            <Typography variant="h1" >Replate</Typography>
 
 
 
@@ -145,7 +147,8 @@ function NavBar(props) {
             </span>
 
           </Grid>
-
+          </Container>
+          </Hidden>
         </Toolbar>
 
       </AppBar>
