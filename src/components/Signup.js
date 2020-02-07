@@ -84,18 +84,14 @@ const Signup = props => {
     <Container maxWidth="xs">
 
 
-      <Grid container='div' direction='row' justify='flex-start' style={{ marginTop: '15px' }}>
-
-        <Button href='https://distracted-ramanujan-c35158.netlify.com/'> Back</Button>
-      </Grid>
       <Grid
         container
         justify="center"
         direction="column"
-        style={{ marginTop: "25px" }}
+        style={{ marginTop: "45px" }}
       >
         <Typography
-          variant="h4"
+          variant="h2"
           style={{ marginBottom: "10px", textAlign: "center" }}
         >
           Sign Up

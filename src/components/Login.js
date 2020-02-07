@@ -70,7 +70,7 @@ const Login = props => {
   
       <Grid justify="center" direction="column" >
         <Typography
-          variant="h1"
+          variant="h2"
           style={{
             marginBottom: "15px",
             marginTop: "115px",
