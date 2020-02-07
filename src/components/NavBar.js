@@ -114,16 +114,16 @@ function NavBar(props) {
 
 
                   {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
+                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll">
                       Available Pickups
     </Button>
                     <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
-                      My Pickups
+                      Accepted Pickups
   </Button></>}
 
 
                   {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
+                    <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard">
                       My Requests
     </Button>
                     <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
