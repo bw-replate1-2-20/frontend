@@ -29,6 +29,7 @@ const Signup = props => {
   const [nameTouched, setNameTouched] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+  const [confirmTouched, setConfirmTouched] = useState(false);
   const [phoneTouched, setPhoneTouched] = useState(false);
   const [addressTouched, setAddressTouched] = useState(false);
   const [descriptionTouched, setDescriptionTouched] = useState(false);
@@ -63,6 +64,8 @@ const Signup = props => {
       .string()
       .required(`Please enter a password.`)
       .min(6, `Password must be at least six characters.`),
+    confirm: yup.string().required('Confirm your password.')
+     .oneOf([yup.ref('password'), null], 'Passwords must match'),
     phone: yup
       .string()
       .required(`Please enter a valid phone number.`),
@@ -84,18 +87,14 @@ const Signup = props => {
     <Container maxWidth="xs">
 
 
-      <Grid container='div' direction='row' justify='flex-start' style={{ marginTop: '15px' }}>
-
-        <Button href='https://distracted-ramanujan-c35158.netlify.com/'> Back</Button>
-      </Grid>
       <Grid
         container
         justify="center"
         direction="column"
-        style={{ marginTop: "25px" }}
+        style={{ marginTop: "45px" }}
       >
         <Typography
-          variant="h4"
+          variant="h2"
           style={{ marginBottom: "10px", textAlign: "center" }}
         >
           Sign Up
@@ -137,7 +136,7 @@ const Signup = props => {
             autoComplete="name"
             inputRef={register}
             error={(!props.isFetching && signupError) || Boolean(errors.name)}
-            helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.name && errors.name.message) || (nameTouched && "Looks good.")}
+            helperText={(!props.isFetching && signupError && "Signup failed. Please check your details and try again.") || (errors.name && errors.name.message) || (nameTouched && "Looks good.")}
             onClick={async () => {
               triggerValidation("name");
               setNameTouched(true);
@@ -159,7 +158,8 @@ const Signup = props => {
             autoComplete="email"
             inputRef={register}
             error={(!props.isFetching && signupError) || Boolean(errors.email)}
-            helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.email && errors.email.message) || (emailTouched && "Valid email.")}
+            helperText={(!props.isFetching && signupError && "This email may already be taken.") || (errors.email && errors.email.message) || (emailTouched && "Valid email.")}
+
             onClick={async () => {
               triggerValidation("email");
               setEmailTouched(true);
@@ -181,8 +181,8 @@ const Signup = props => {
             type="password"
             autoComplete="current-password"
             inputRef={register}
-            error={(!props.isFetching && signupError) || Boolean(errors.password)}
-            helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.password && errors.password.message) || (passwordTouched && "Awesome password.")}
+            error={(!props.isFetching && signupError) || Boolean(errors.password) || Boolean(errors.confirm)}
+            helperText={(!props.isFetching && signupError && "") || (errors.password && errors.password.message) || (passwordTouched && "Awesome password.")}
             onClick={async () => {
               triggerValidation("password");
               setPasswordTouched(true);
@@ -194,6 +194,34 @@ const Signup = props => {
 
             }}
           />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="confirm"
+            label="Confirm Password"
+            type="password"
+            autoComplete="current-password"
+            inputRef={register}
+            error={(!props.isFetching && signupError) || Boolean(errors.confirm)}
+            helperText={(!props.isFetching && signupError && "") || (errors.confirm && errors.confirm.message) || (confirmTouched && "Password is a match.")}
+            onClick={async () => {
+              triggerValidation("confirm");
+              triggerValidation("password");
+              setConfirmTouched(true);
+            }}
+            onChange={async () => {
+              triggerValidation("confirm");
+              triggerValidation("password");
+              setConfirmTouched(true);
+              setHasFetched(false)
+
+            }}
+          />
+
+
           {isBusiness && (
             <TextField
               variant="outlined"
@@ -205,7 +233,7 @@ const Signup = props => {
               autoComplete="street-address"
               inputRef={register}
               error={(!props.isFetching && signupError) || Boolean(errors.address)}
-              helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.address && errors.address.message) || (addressTouched && "Checks out.")}
+              helperText={(!props.isFetching && signupError && "") || (errors.address && errors.address.message) || (addressTouched && "Checks out.")}
               onClick={async () => {
                 triggerValidation("address");
                 setAddressTouched(true);
@@ -228,7 +256,7 @@ const Signup = props => {
             label="Phone Number"
             inputRef={register}
             error={(!props.isFetching && signupError) || Boolean(errors.phone)}
-            helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.phone && errors.phone.message) || (phoneTouched && "Valid phone number.")}
+            helperText={(!props.isFetching && signupError & "") || (errors.phone && errors.phone.message) || (phoneTouched && "Valid phone number.")}
             onClick={async () => {
               triggerValidation("phone");
               setPhoneTouched(true);
@@ -252,7 +280,7 @@ const Signup = props => {
               style={{ width: "100%" }}
               inputRef={register}
               error={(!props.isFetching && signupError) || Boolean(errors.description)}
-              helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.description && errors.description.message) || (descriptionTouched && "Looks good.")}
+              helperText={(!props.isFetching && signupError && "")  || (errors.description && errors.description.message) || (descriptionTouched && "Looks good.")}
               onClick={async () => {
                 triggerValidation("description");
                 setDescriptionTouched(true);
@@ -265,7 +293,7 @@ const Signup = props => {
             />
           )}
           <Button
-            disabled={(isBusiness && !descriptionTouched) || (isBusiness && !addressTouched) || props.isFetching || hasFetched || !emailTouched || !passwordTouched || Boolean(errors.email) || Boolean(errors.password) || Boolean(errors.phone) || Boolean(errors.description) || Boolean(errors.address)}
+            disabled={(isBusiness && !descriptionTouched) || (isBusiness && !addressTouched) || props.isFetching || hasFetched || !emailTouched || !passwordTouched || !phoneTouched || !confirmTouched || Boolean(errors.email) || Boolean(errors.password) || Boolean(errors.confirm) || Boolean(errors.phone) || Boolean(errors.description) || Boolean(errors.address)}
             type="submit"
             fullWidth
             variant="contained"

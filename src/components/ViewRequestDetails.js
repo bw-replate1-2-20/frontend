@@ -1,7 +1,7 @@
 // RENDERING THROUGH PROPS, REQUEST DETAIL
 // CONNECT TO STORE
 // ABILITY TO UPDATE / DELETE REQUEST ID
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 // actions

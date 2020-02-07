@@ -11,12 +11,11 @@ import { Container, Drawer } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
+
 
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/icons/Menu";
@@ -44,6 +43,7 @@ function NavBar(props) {
             <CloseIcon fontSize='large' />
           </IconButton>
         </Grid>
+
         {/* Volunteer navigation in drawer */}
 
         {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
@@ -86,66 +86,48 @@ function NavBar(props) {
       <AppBar position="static" color="secondary">
 
         <Toolbar>
-          <Grid container direction="row" alignItems='center' justify='space-between'>
 
-            <Hidden mdUp>
-              <IconButton aria-label="navigation" onClick={() => { setDrawerOpen(!drawerOpen) }} style={{ color: "#fff" }}>
-                <Menu fontSize='large' />
-              </IconButton>
-            </Hidden>
+            <Container maxWidth='lg'>
+              <Grid container direction="row" alignItems='center' justify='space-between'>
 
-            <Typography variant="h1" >
-              Replate
-                </Typography>
+                <Hidden mdUp>
+                  {localStorage.getItem("id") &&
+                    <IconButton aria-label="navigation" onClick={() => { setDrawerOpen(!drawerOpen) }} style={{ color: "#fff" }}>
+                      <Menu fontSize='large' />
+                    </IconButton>
+                  }</Hidden>
 
+                  <Typography variant="h1" >Replate</Typography>
 
+                  {localStorage.getItem("id") &&
+                    <span>
+                      <Hidden smDown>
+                        {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
+                            Available Pickups</Button>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
+                            My Pickups</Button></>}
+                        {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
+                            My Requests</Button>
+                          <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
+                            Analytics</Button>
+                        </>}
+                      </Hidden>
 
+                      <Button
+                        style={{ color: "#fff" }}
+                        onClick={() => {
+                          localStorage.clear();
+                          history.push("/");
+                        }}>Logout
+                      </Button>
+                      </span>}
+                
 
-            <span>
-
-
-              {localStorage.getItem("id") && (
-<>
-
-                <Hidden smDown>
-
-
-
-                  {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
-                      Available Pickups
-    </Button>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
-                      My Pickups
-  </Button></>}
-
-
-                  {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
-                      My Requests
-    </Button>
-                    <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
-                      Analytics
-  </Button>
-                  </>}
-
-                </Hidden>
-
-
-                <Button
-                  style={{ color: "#fff" }}
-                  onClick={() => {
-                    localStorage.clear();
-                    history.push("/");
-                  }}
-                >
-                  Logout
-                  </Button> </>
-            )}
-            </span>
-
-          </Grid>
-
+              </Grid>
+            </Container>
+      
         </Toolbar>
 
       </AppBar>

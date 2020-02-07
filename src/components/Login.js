@@ -67,16 +67,13 @@ const Login = props => {
   return (
     //Reformatted forms with react useForm
     <Container maxWidth="xs">
-      <Grid container='div' direction='row' justify='flex-start' style={{marginTop: '15px'}}>
-      
-        <Button href='https://distracted-ramanujan-c35158.netlify.com/'> Back</Button>
-      </Grid>
-      <Grid justify="center" direction="column">
+  
+      <Grid container justify="center" direction="column" >
         <Typography
-          variant="h1"
+          variant="h2"
           style={{
             marginBottom: "15px",
-            marginTop: "50px",
+            marginTop: "115px",
             textAlign: "center"
           }}
         >
@@ -165,14 +162,14 @@ const Login = props => {
             helperText={(!props.isFetching && loginError && "Email or password is incorrect." ) || (errors.password && errors.password.message) || (passwordTouched && "Nice.")}
           />
           <Button
-            disabled={props.isFetching || hasFetched || !emailTouched || !passwordTouched || errors.email || errors.password}
+            disabled={props.isFetching || hasFetched || !emailTouched || !passwordTouched || Boolean(errors.email) || Boolean(errors.password)}
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             style={{ margin: "15px 0" }}
           >
-            {props.isFetching && "Logging In" || "Log In"}
+            {( props.isFetching && "Logging In" ) || "Log In"}
           </Button>
           <br />
           <Grid container justify="center">
