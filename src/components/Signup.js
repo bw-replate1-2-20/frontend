@@ -29,6 +29,7 @@ const Signup = props => {
   const [nameTouched, setNameTouched] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+  const [confirmTouched, setConfirmTouched] = useState(false);
   const [phoneTouched, setPhoneTouched] = useState(false);
   const [addressTouched, setAddressTouched] = useState(false);
   const [descriptionTouched, setDescriptionTouched] = useState(false);
@@ -63,6 +64,8 @@ const Signup = props => {
       .string()
       .required(`Please enter a password.`)
       .min(6, `Password must be at least six characters.`),
+    confirm: yup.string().required('Confirm your password.')
+     .oneOf([yup.ref('password'), null], 'Passwords must match'),
     phone: yup
       .string()
       .required(`Please enter a valid phone number.`),
@@ -177,7 +180,7 @@ const Signup = props => {
             type="password"
             autoComplete="current-password"
             inputRef={register}
-            error={(!props.isFetching && signupError) || Boolean(errors.password)}
+            error={(!props.isFetching && signupError) || Boolean(errors.password) || Boolean(errors.confirm)}
             helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.password && errors.password.message) || (passwordTouched && "Awesome password.")}
             onClick={async () => {
               triggerValidation("password");
@@ -190,6 +193,34 @@ const Signup = props => {
 
             }}
           />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="confirm"
+            label="Confirm Password"
+            type="password"
+            autoComplete="current-password"
+            inputRef={register}
+            error={(!props.isFetching && signupError) || Boolean(errors.confirm)}
+            helperText={(!props.isFetching && signupError && "Signup failed.") || (errors.confirm && errors.confirm.message) || (confirmTouched && "Password is a match.")}
+            onClick={async () => {
+              triggerValidation("confirm");
+              triggerValidation("password");
+              setConfirmTouched(true);
+            }}
+            onChange={async () => {
+              triggerValidation("confirm");
+              triggerValidation("password");
+              setConfirmTouched(true);
+              setHasFetched(false)
+
+            }}
+          />
+
+
           {isBusiness && (
             <TextField
               variant="outlined"
@@ -261,7 +292,7 @@ const Signup = props => {
             />
           )}
           <Button
-            disabled={(isBusiness && !descriptionTouched) || (isBusiness && !addressTouched) || props.isFetching || hasFetched || !emailTouched || !passwordTouched || Boolean(errors.email) || Boolean(errors.password) || Boolean(errors.phone) || Boolean(errors.description) || Boolean(errors.address)}
+            disabled={(isBusiness && !descriptionTouched) || (isBusiness && !addressTouched) || props.isFetching || hasFetched || !emailTouched || !passwordTouched || !confirmTouched || Boolean(errors.email) || Boolean(errors.password) || Boolean(errors.confirm) || Boolean(errors.phone) || Boolean(errors.description) || Boolean(errors.address)}
             type="submit"
             fullWidth
             variant="contained"
