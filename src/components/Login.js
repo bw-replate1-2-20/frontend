@@ -68,7 +68,7 @@ const Login = props => {
     //Reformatted forms with react useForm
     <Container maxWidth="xs">
   
-      <Grid justify="center" direction="column" >
+      <Grid container justify="center" direction="column" >
         <Typography
           variant="h2"
           style={{
@@ -162,7 +162,7 @@ const Login = props => {
             helperText={(!props.isFetching && loginError && "Email or password is incorrect." ) || (errors.password && errors.password.message) || (passwordTouched && "Nice.")}
           />
           <Button
-            disabled={props.isFetching || hasFetched || !emailTouched || !passwordTouched || errors.email || errors.password}
+            disabled={props.isFetching || hasFetched || !emailTouched || !passwordTouched || Boolean(errors.email) || Boolean(errors.password)}
             type="submit"
             fullWidth
             variant="contained"
