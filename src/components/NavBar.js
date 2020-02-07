@@ -38,16 +38,16 @@ function NavBar(props) {
       <Drawer open={drawerOpen} PaperProps={{ style: { width: "100%" } }}>
 
         <Grid container direction='row'>
-        <IconButton onClick={() => {
-              setDrawerOpen(!drawerOpen);
-            }}>
-          <CloseIcon fontSize='large'/>
-        </IconButton>
+          <IconButton onClick={() => {
+            setDrawerOpen(!drawerOpen);
+          }}>
+            <CloseIcon fontSize='large' />
+          </IconButton>
         </Grid>
         {/* Volunteer navigation in drawer */}
 
         {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-        <List component="nav">
+          <List component="nav">
             <ListItem button component={RouteLink} to="/volunteerDashboardAll" onClick={() => {
               setDrawerOpen(false);
             }}>
@@ -56,7 +56,7 @@ function NavBar(props) {
             <ListItem button component={RouteLink} to="/volunteerDashboardPersonal" onClick={() => {
               setDrawerOpen(false);
             }}>
-             Accepted Pickups
+              Accepted Pickups
           </ListItem>
           </List>
 
@@ -102,39 +102,45 @@ function NavBar(props) {
 
 
             <span>
-            <Hidden smDown>
-              
-            {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-            <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
-                Available Pickups
-                </Button>
-                <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
-                  My Pickups
-              </Button></>}
 
 
-            {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
-                <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
-                  My Requests
-                </Button>
-                <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
-                  Analytics
-              </Button>
-              </>}
-             
-            </Hidden>
+              {localStorage.getItem("id") && (
+<>
+
+                <Hidden smDown>
 
 
-            {localStorage.getItem("id") && (
-              <Button
-                style={{ color: "#fff" }}
-                onClick={() => {
-                  localStorage.clear();
-                  history.push("/");
-                }}
-              >
-                Logout
-                  </Button>
+
+                  {!Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardAll" exact>
+                      Available Pickups
+    </Button>
+                    <Button component={RouteLink} style={{ color: "#fff" }} to="/volunteerDashboardPersonal">
+                      My Pickups
+  </Button></>}
+
+
+                  {Boolean(JSON.parse(localStorage.getItem("isBusiness"))) && <>
+                    <Button component={RouteLink} style={{ color: "#fff" }} to="/businessDashboard" exact>
+                      My Requests
+    </Button>
+                    <Button component={RouteLink} style={{ color: "#fff" }} to="/analytics">
+                      Analytics
+  </Button>
+                  </>}
+
+                </Hidden>
+
+
+                <Button
+                  style={{ color: "#fff" }}
+                  onClick={() => {
+                    localStorage.clear();
+                    history.push("/");
+                  }}
+                >
+                  Logout
+                  </Button> </>
             )}
             </span>
 
