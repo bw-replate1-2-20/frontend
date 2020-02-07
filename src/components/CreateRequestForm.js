@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 import { createRequest } from "../actions/requestActions";
 
 // material ui
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -33,7 +32,7 @@ const CreateRequestForm = props => {
 
   useEffect(() => {}, [selectedTime]);
 
-  const { handleSubmit, register, error } = useForm();
+  const { handleSubmit, register } = useForm();
 
   //Login action goes here
   const onSubmit = values => {

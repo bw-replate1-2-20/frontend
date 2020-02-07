@@ -1,7 +1,7 @@
 // GET ALL REQUESTS, REDER TO THE PAGE.
 // PASS ACTIONS AS PROPS TO OTHER COMPONENTS
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import RequestList from "./RequestList";

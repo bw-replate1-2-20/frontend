@@ -169,7 +169,7 @@ const Login = props => {
             color="primary"
             style={{ margin: "15px 0" }}
           >
-            {props.isFetching && "Logging In" || "Log In"}
+            {( props.isFetching && "Logging In" ) || "Log In"}
           </Button>
           <br />
           <Grid container justify="center">
