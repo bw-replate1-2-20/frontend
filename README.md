@@ -23,18 +23,6 @@ Designer
 * React Testing Library - Testing library
 * Yup - Testing assertion library
 
-## Components
-* Login -> Renders login page (login authentication and routes to private listings)
-* SignUp -> Renders signup page (signup registration and routes to login)
-* SignUp Info -> Renders signup credential restrictions
-* Private Route ->
-* Presentational Components -> All styled components go here and are exported
-* Header -> Renders header, display changes based on local storage token
-* Listing Page -> Renders control bar and private user listings
-* Listing Form -> Renders form for adding/editing listings
-* Listing Details -> Renders details for a particular listing based off of an id
-* Listing Card -> Renders card to display listing details in
-
 ## Theme and Design
 * Figma materials - https://www.figma.com/file/dBZMBAoa4erQW099gPDSqK/Trevor-Swanton_Replate_with-Dev-Edit-Access?node-id=0%3A7056
 * By Trevor Swanton - https://www.linkedin.com/in/trevor-m-s-293181111/
